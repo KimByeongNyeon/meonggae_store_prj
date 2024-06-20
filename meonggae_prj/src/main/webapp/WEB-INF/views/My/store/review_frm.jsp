@@ -14,7 +14,7 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/style.css">
-<link rel="stylesheet" href="http://localhost/meonggae_prj/common/My/css/style_store.css">
+<link rel="stylesheet" href="http://localhost/meonggae_prj/common/My/css/style_store.css?after">
 <!-- CSS -->
 
 <script type="text/javascript">
@@ -41,15 +41,31 @@ String nick = request.getParameter("nick");
 		<a href="http://localhost/meonggae_prj/My/store/store_frm.do?nick=${user.nick}" id="unSelected">상품</a> | 
 		<a href="http://localhost/meonggae_prj/My/store/store_review_frm.do?nick=${user.nick}" id="selected">후기</a>
 	</div>
-		
+	
+	<%
+	double score = 3.3;
+	double score2 = (double)score/5;
+	int width = (int)(score2*100);
+	
+	double tempScore = 4.5;
+	double temp = tempScore%1;
+	System.out.println(temp);
+	%>
 	<div class="totalStarScore">
-	5<br>
-	<div class="stars">★★★★★</div>
+		<%= score %><br/>
+		<div class="wrap-star">
+		    <div class="star-rating">
+		        <span style ="width:<%=width%>%;"></span>
+		    </div>
+		</div>
 	</div>
+	
+	
+	
 	<hr style="color: #606060;">
 	<div class="review">
 		<div class="reviewerName">집에가고싶은사람</div>
-		<div class="stars">★★★★★</div>
+		<div class="stars">★★★★☆</div>
 		<div class="reviewContent">너무졸려요!!</div>
 	</div>
 	<hr>

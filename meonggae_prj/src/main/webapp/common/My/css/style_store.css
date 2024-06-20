@@ -44,13 +44,41 @@
 
 .totalStarScore{
 	width: 100%;
-	height: 130px;
+	height: 170px;
 	border: 1px solid #000000;
 	padding-top: 30px;
-	text-align: center;
-	font-size: 35px;
 	color: #000000;
 	line-height: 30px;
+	font-size: 45px;
+	
+	display: flex;
+	flex-direction: column; /* 자식 요소들을 수직으로 정렬 */
+	align-items: center; /* 수직 정렬에서 가로축 기준 가운데 정렬 */
+	margin: 0 auto; /* 전체 박스를 가운데 정렬 */
+}
+
+.wrap-star {
+	text-align: left;
+	height: 55px;
+	width: 304px;
+	margin-top: 20px; 
+}
+
+.star-rating {
+	width: 304px;
+}
+
+.star-rating,.star-rating span {
+	display: inline-block;
+	height: 55px;
+	overflow: hidden;
+	background: url(http://localhost/meonggae_prj/common/My/image/star.png) no-repeat;
+}
+	
+.star-rating span {
+	background-position: left bottom;
+	line-height: 0;
+	vertical-align: top;
 }
 
 .review{
@@ -63,8 +91,8 @@
 }
 
 .stars{
-	color: #FFE200;
 	font-weight: bold;
+	color: #FFEC1B;
 }
 
 .reviewContent{
