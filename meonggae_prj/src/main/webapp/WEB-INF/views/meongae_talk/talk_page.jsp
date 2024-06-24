@@ -4,32 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript">
-let websocket;
-
-function connect() {
-
-var wsUrl = "ws://${pageContext.request.serverName}:${pageContext.request.contextPath}/meonggae_talk/talk_page.do";
-
-websocket = new WebSocket(wsUrl);
-
-websocket.onmessage = onMessage;
-}
-
-function onOpen() {
-	
-}
-
-function sendMessage(message) {
-	
-}
-
-function onMessage(evt) {
-	
-}
-
-
-</script>
 <meta charset="UTF-8">
 <title>멍게장터</title>
 <link rel="icon" href="../common/tamcatIcon.ico" />
