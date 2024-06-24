@@ -20,7 +20,7 @@
                 </div>
                 <div class="user-info d-none d-md-block">
                   <div class="user-status">관리자</div>
-                  <div class="user-name dropdown-indicator">관리자닉네임</div>
+                  <div class="user-name dropdown-indicator"><c:out value="${mgr.nick }"/></div>
                 </div>
               </div>
             </a>
@@ -28,11 +28,10 @@
               <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                 <div class="user-card">
                   <div class="user-avatar">
-                    <span>AB</span>
                   </div>
                   <div class="user-info">
-                    <span class="lead-text">관리자닉네임</span>
-                    <span class="sub-text">manager@meonggae.com</span>
+                    <span class="lead-text"><c:out value="${mgr.nick }"/></span>
+                    <span class="sub-text"><c:out value="${mgr.email }"/></span>
                   </div>
                 </div>
               </div>
@@ -41,7 +40,7 @@
               <div class="dropdown-inner">
                 <ul class="link-list">
                   <li>
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/mgr/logout.do">
                       <em class="icon ni ni-signout"></em>
                       <span>로그아웃</span>
                     </a>
