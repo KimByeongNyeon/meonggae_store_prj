@@ -26,5 +26,35 @@ and s.goods_num=#{ goodsNum }
 and s.mem_num=#{ memNum }
 </select>
 
+<!-- 값이 있으면 다시찜. 없으면 첫찜. -->
+<select id="checkFirstSteam" resultType="int" parameterType="com.store.meonggae.product.vo.SteamVO">
+select count(*) 
+from steam 
+where goods_num=#{ goodsNum } 
+and mem_num=#{ memNum }
+</select>
+
+<!-- 찜 등록(첫 찜) -->
+<insert id="insertSteam" parameterType="com.store.meonggae.product.vo.SteamVO">
+insert into steam(GOODS_NUM, MEM_NUM, STEAM_FLAG, INPUT_DATE) 
+values( #{ goodsNum }, #{ memNum }, 'Y', sysdate)
+</insert>
+
+<!-- 찜 등록(삭제 후 다시 찜) -->
+<update id="updateSteamToY" parameterType="com.store.meonggae.product.vo.SteamVO">
+update steam
+set steam_flag='Y'
+where goods_num=#{ goodsNum }
+and mem_num=#{ memNum }
+</update>
+
+<!-- 찜 삭제(update STEAM_FLAG='N') -->
+<update id="updateSteamToN" parameterType="com.store.meonggae.product.vo.SteamVO">
+update steam
+set steam_flag='N'
+where goods_num=#{ goodsNum }
+and mem_num=#{ memNum }
+</update>
+
 
 </mapper>

@@ -29,4 +29,32 @@ public class ProductDetailInfoDAO {
 		}
 	};//checkMemSteam
 	
+	//값이 있으면 다시찜. 없으면 첫찜.
+	public int checkFirstSteam(SteamVO steamVO)throws PersistenceException {
+		try (SqlSession ss = mbDAO.getMyBatisHandler(false)) {
+			return ss.selectOne("com.store.meonggae.product.ProductDetailInfoMapper.checkFirstSteam", steamVO);
+		}
+	};//checkFirstSteam
+	
+	//찜 등록(첫 찜)
+	public int insertSteam(SteamVO steamVO)throws PersistenceException {
+		try (SqlSession ss = mbDAO.getMyBatisHandler(true)) {//auto commit 자동 커밋)
+			return ss.insert("com.store.meonggae.product.ProductDetailInfoMapper.insertSteam", steamVO);
+		}
+	};//checkFirstSteam
+	
+	//찜 등록(삭제 후 다시 찜)
+	public int updateSteamToY(SteamVO steamVO)throws PersistenceException {
+		try (SqlSession ss = mbDAO.getMyBatisHandler(true)) {//auto commit 자동 커밋)
+			return ss.update("com.store.meonggae.product.ProductDetailInfoMapper.updateSteamToY", steamVO);
+		}
+	};//checkFirstSteam
+	
+	//찜 삭제(update STEAM_FLAG='N')
+	public int updateSteamToN(SteamVO steamVO)throws PersistenceException {
+		try (SqlSession ss = mbDAO.getMyBatisHandler(true)) {//auto commit 자동 커밋)
+			return ss.update("com.store.meonggae.product.ProductDetailInfoMapper.updateSteamToN", steamVO);
+		}
+	};//checkFirstSteam
+	
 }

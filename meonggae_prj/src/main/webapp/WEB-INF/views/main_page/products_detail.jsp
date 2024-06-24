@@ -32,6 +32,7 @@
 <!-- header 끝 -->
 <input type="hidden" name="user_memNum" value="${user.memNum}">
 <input type="hidden" name="checkMemSteam" value="${checkMemSteam}">
+<input type="hidden" name="goodsNum" value="${ spd.goodsNum }">
 <div class="container">
 	<div class="row">
 		<div class="products_categoryNavigation">

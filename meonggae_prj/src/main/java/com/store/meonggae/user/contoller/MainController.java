@@ -92,7 +92,6 @@ public class MainController {
 	public String productDetail(HttpSession session, @RequestParam(name = "goodsNum", required = false) String goodsNum, Model model) {
 		// 사용자 정보를 세션에서 가져옴
         LoginDomain loginUser = (LoginDomain) session.getAttribute("user");
-        System.out.println("loginUser "+loginUser);
         
 		//상품 상세
 		SearchProductDetailDomain spd = SearchProductService.selectPrdDetail(goodsNum);
@@ -115,8 +114,6 @@ public class MainController {
 		if(loginUser != null) {
 			SteamVO steamVo = new SteamVO(spd.getGoodsNum(), loginUser.getMemNum());
 			boolean checkMemSteam = ProductDetailInfoService.checkMemSteam(steamVo);
-			System.out.println("steamVo "+steamVo);
-			System.out.println("checkMemSteam "+checkMemSteam);
 			model.addAttribute("checkMemSteam", checkMemSteam);
 		}
 	    
