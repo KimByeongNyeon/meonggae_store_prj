@@ -46,22 +46,32 @@ public class ProductController {
     }
 
     @PostMapping("/product_page/product_add.do")
-    public String handleProductAdd(Model model, ProductDomain product, @RequestParam("img") MultipartFile img, HttpSession session) throws IOException {
+    public String handleProductAdd(Model model, ProductDomain product, MultipartFile img, HttpSession session, RedirectAttributes redirectAttributes) throws IOException {
         // 사용자 정보를 세션에서 가져옴
         LoginDomain loginUser = (LoginDomain) session.getAttribute("user");
 
-        // 상품을 등록한 사용자의 ID 설정
+        if (loginUser == null) {
+            redirectAttributes.addFlashAttribute("message", "로그인이 필요한 서비스 입니다.");
+            return "redirect:/index.do";
+        }
+
+        // 사용자 정보 설정
         product.setMemNum(loginUser.getMemNum());
-        
-        // 서비스를 통해 상품 등록 처리 (이미지 파일 포함)
+        System.out.println("memNum "+loginUser.getMemNum());
+
+        if (img == null || img.isEmpty()) {
+            model.addAttribute("uploadFlag", false);
+            model.addAttribute("message", "이미지 파일이 필요합니다.");
+            return "product_page/product_add";
+        }
+
+        // 상품 등록 서비스 호출
         productAddService.insertProduct(product, img);
 
-        // 등록된 상품 정보를 모델에 추가 (선택사항)
-        model.addAttribute("uploader", loginUser.getNick());
-        model.addAttribute("fileName", img.getOriginalFilename());
+        // 모델에 필요한 정보 추가
         model.addAttribute("uploadFlag", true);
 
-        // 등록 성공 메시지 등 다른 로직 처리 후 필요한 페이지로 이동
-        return "redirect:/product_page/product_list.do";
+        return "product_page/product_add";
     }
+
 }

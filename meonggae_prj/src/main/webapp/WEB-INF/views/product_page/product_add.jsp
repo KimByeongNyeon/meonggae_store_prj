@@ -113,9 +113,11 @@ function previewImage(event) {
                             <div class="form-group">
                                 <label>물품 상태</label>
                                 <div class="radio-group">
-                                    <label><input type="radio" name="quality_code" value="미개봉" required> 미개봉</label>
-                                    <label><input type="radio" name="quality_code" value="거의 새 것" required> 거의 새 것</label>
-                                    <label><input type="radio" name="quality_code" value="사용감 있음" required> 사용감 있음</label>
+                                    <label><input type="radio" name="quality_code" value="1" required>새상품(미사용)</label>
+                                    <label><input type="radio" name="quality_code" value="2" required>사용감없음</label>
+                                    <label><input type="radio" name="quality_code" value="3" required> 사용감적음</label>
+                                    <label><input type="radio" name="quality_code" value="4" required> 사용감많음</label>
+                                    <label><input type="radio" name="quality_code" value="5" required> 고장/파손 상품</label>
                                 </div>
                             </div>
                         </div>
@@ -127,6 +129,16 @@ function previewImage(event) {
                             <div class="form-group">
                                 <label for="detail">설명</label>
                                 <textarea id="detail" name="detail" rows="5" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <div class="form-group">
+                                <label>거래 방식</label>
+                                <div class="radio-group">
+                                    <label><input type="radio" name="trade_method_code" value="B" required>택배/직거래</label>
+                                    <label><input type="radio" name="trade_method_code" value="P" required>택배</label>
+                                    <label><input type="radio" name="trade_method_code" value="D" required>직거래</label>
+                                </div>
                             </div>
                         </div>
                         <div class="form-actions">
