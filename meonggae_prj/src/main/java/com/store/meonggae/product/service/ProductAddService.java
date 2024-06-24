@@ -46,8 +46,8 @@ public class ProductAddService {
             // 파일 저장
             img.transferTo(filePath.toFile());
 
-            // DB에 저장할 파일 경로 설정
-            product.setImgFileName(fileExtension);
+            // DB에 저장할 파일명 설정
+            product.setImgFileName(storedFilename);
         }
 
         // 상품 정보를 DB에 저장
