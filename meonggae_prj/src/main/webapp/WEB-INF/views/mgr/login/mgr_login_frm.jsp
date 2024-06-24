@@ -39,8 +39,28 @@
 <script type="text/javascript">
 
 	$(function() {
-
+		$("#btn").click(function() {
+			chkNull();
+		}); // click
 	}); // $(document).ready(function() { })
+	
+	function chkNull() {
+		let flag = true;
+		if($("#manager_id").val() == "" || ($("#manager_id").val() == null)){
+			alert("아이디는 필수 입력입니다");
+			flag = false;
+			return;
+		} // end if
+		if($("#pass").val() == "" || ($("#pass").val() == null)){
+			alert("비밀번호는 필수 입력입니다");
+			flag = false;
+			return;
+		} // end if
+	
+		if(flag) {
+			$("#MgrVO").submit();
+		}
+	} // chkNull
 
 </script>
 
@@ -70,13 +90,14 @@
 										</div>
 									</div>
 								</div>
-								<form action="#" class="form-validate is-alter" autocomplete="off" novalidate="novalidate">
+								<form id="MgrVO" name="MgrVO" method="post" action="mgr_main.do" class="form-validate is-alter" autocomplete="off" novalidate="novalidate">
+									<input type="text" style="display:none;"/>
 									<div class="form-group">
 										<div class="form-label-group">
 											<label class="form-label" for="email-address">아이디</label>
 										</div>
 										<div class="form-control-wrap">
-											<input autocomplete="off" type="text" class="form-control form-control-lg" id="email-address" placeholder="아이디를 입력해주세요">
+											<input autocomplete="off" type="text" class="form-control form-control-lg" id="manager_id" name="manager_id" placeholder="아이디를 입력해주세요" value="super">
 										</div>
 									</div>
 									<div class="form-group">
@@ -84,15 +105,17 @@
 											<label class="form-label" for="password">비밀번호</label>
 										</div>
 										<div class="form-control-wrap">
-											<a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch lg" data-target="password">
-												<em class="passcode-icon icon-show icon ni ni-eye"></em>
-												<em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
-											</a>
-											<input autocomplete="new-password" type="password" class="form-control form-control-lg" id="password" placeholder="비밀번호를 입력해주세요">
+											<input autocomplete="new-password" type="password" class="form-control form-control-lg" id="pass" name="pass" placeholder="비밀번호를 입력해주세요" value="qwer1234!">
 										</div>
 									</div>
+									<div>
+<%-- 									<c:if test="${not empty pageScope.flagMgrLogin and pageScope.flagMgrLogin eq false}"> --%>
+									<c:if test="${not empty flagMgrLogin and flagMgrLogin eq false}">
+									<span style="color:#ff0000;">아이디 또는 비밀번호를 확인해주세요</span>
+									</c:if>
+									</div>
 									<div class="form-group">
-										<button class="btn btn-lg btn-primary btn-block">로그인</button>
+										<input type="button" class="btn btn-lg btn-primary btn-block" id="btn" value="로그인"/>
 									</div>
 								</form>
 							</div>
