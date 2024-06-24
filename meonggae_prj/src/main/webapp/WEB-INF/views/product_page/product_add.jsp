@@ -35,6 +35,32 @@
 <script src="../common/JS/script.js"></script>
 <script src="../common/JS/tab.js"></script>
 <script src="../common/JS/product_add.js"></script>
+<script type="text/javascript">
+$(function () {
+	$("#add").click(function(){
+		var ext=$("#img").val();
+		
+		if(ext == ""){
+			alert("파일을 선택해주세요.")
+			return;
+		}
+		
+		if(ext.substring(ext.lastIndexOf(".")+1).toUpperCase() == "JSP"){
+			alert("업로드 불가능한 파일입니다.");
+			return;
+		}//end if
+		$("#newProduct").submit();
+	})
+});
+function previewImage(event) {
+    const reader = new FileReader();
+    reader.onload = function() {
+        const output = document.getElementById('image-preview');
+        output.src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+}
+</script>
 <link rel="stylesheet"
     href="http://localhost/meonggae_prj/common/CSS/style.css?v=1.0">
 <link rel="stylesheet"
@@ -55,16 +81,16 @@
             </ul>
             <div class="tabcontent">
                 <div id="tab01">
-                    <form name="newProduct" action="${pageContext.request.contextPath}/product_page/product_add.do" class="form-horizontal" method="post" enctype="multipart/form-data">
+                    <form name="newProduct" id="newProduct" action="${pageContext.request.contextPath}/product_page/product_add.do" class="form-horizontal" method="post" enctype="multipart/form-data">
                         <div class="form-section">
                             <div class="form-group">
                                 <label for="image">상품이미지</label>
                                 <img id="image-preview" class="image-preview" src="">
-                                <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
+                                <input type="file" id="img" name="img" accept="image/*" onchange="previewImage(event)">
                             </div>
                             <div class="form-group">
-                                <label for="product-name">상품명</label>
-                                <input type="text" id="product-name" name="product-name" required>
+                                <label for="name">상품명</label>
+                                <input type="text" id="name" name="name" required>
                             </div>
                             <div class="form-group">
                                 <label for="category">카테고리</label>
@@ -79,32 +105,32 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="product-price">가격</label>
-                                <input type="text" id="product-price" name="product-price" required>
+                                <label for="price">가격</label>
+                                <input type="text" id="price" name="price" required>
                             </div>
                         </div>
                         <div class="form-section">
                             <div class="form-group">
                                 <label>물품 상태</label>
                                 <div class="radio-group">
-                                    <label><input type="radio" name="condition" value="미개봉" required> 미개봉</label>
-                                    <label><input type="radio" name="condition" value="거의 새 것" required> 거의 새 것</label>
-                                    <label><input type="radio" name="condition" value="사용감 있음" required> 사용감 있음</label>
+                                    <label><input type="radio" name="quality_code" value="미개봉" required> 미개봉</label>
+                                    <label><input type="radio" name="quality_code" value="거의 새 것" required> 거의 새 것</label>
+                                    <label><input type="radio" name="quality_code" value="사용감 있음" required> 사용감 있음</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="trade-addr">직거래 장소</label>
-                            <input type="text" id="trade-addr" name="trade-addr" required>
+                            <label for="location">직거래 장소</label>
+                            <input type="text" id="location" name="location" required>
                         </div>
                         <div class="form-section">
                             <div class="form-group">
-                                <label for="description">설명</label>
-                                <textarea id="description" name="description" rows="5" required></textarea>
+                                <label for="detail">설명</label>
+                                <textarea id="detail" name="detail" rows="5" required></textarea>
                             </div>
                         </div>
                         <div class="form-actions">
-                            <button type="submit" id = "add" class="btn">등록하기</button>
+                            <button type="button" id = "add" class="btn btn-success">등록하기</button>
                             <button type="button" class="btn btn-secondary">임시저장</button>
                         </div>
                     </form>

@@ -2,7 +2,8 @@ package com.store.meonggae.product.domain;
 
 
 public class ProductDomain {
-	private String goods_num, img, name, detail, quality_code, category_num,  price, cnt, trade_method_code, category, location, sell_status_code;
+	private String goods_num, name, detail, quality_code, category_num,  price, cnt, trade_method_code, category, location, sell_status_code;
+	private String img;
 	private int memNum;
 	public ProductDomain() {
 		
@@ -55,6 +56,14 @@ public class ProductDomain {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getdetail() {
+		return detail;
+	}
+
+	public void setdetail(String detail) {
+		this.detail = detail;
 	}
 
 	public String getDetail() {
@@ -132,11 +141,13 @@ public class ProductDomain {
 
 	@Override
 	public String toString() {
-		return "ProductDomain [goods_num=" + goods_num + ", img=" + img + ", name=" + name + ", detail=" + detail
+		return "ProductDomain [goods_num=" + goods_num + ", img=" + img + ", name=" + name +", detail=" + detail + ", detail=" + detail
 				+ ", quality_code=" + quality_code + ", category_num=" + category_num + ", price=" + price + ", cnt="
 				+ cnt + ", trade_method_code=" + trade_method_code + ", category=" + category + ", location=" + location
 				+ ", sell_status_code=" + sell_status_code + ", memNum=" + memNum + "]";
 	}
+
+
 
 	
 	
