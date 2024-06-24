@@ -19,7 +19,13 @@
 	<typeAlias type="com.store.meonggae.product.domain.SearchProductDomain" alias="searchProductDomain"/>
 
 	<typeAlias type="com.store.meonggae.product.domain.ProductDomain" alias="productDomain"/>
+	
+<!-- store,my -->
 	<typeAlias type="com.store.meonggae.my.store.domain.StoreMainDomain" alias="storeMainDomain"/>
+	<typeAlias type="com.store.meonggae.my.store.domain.ReviewDomain" alias="reviewDomain"/>
+	<typeAlias type="com.store.meonggae.my.store.VO.ReviewVO" alias="reviewVO"/>
+<!-- store,my -->
+
 </typeAliases>
   <environments default="development">
     <environment id="development">
