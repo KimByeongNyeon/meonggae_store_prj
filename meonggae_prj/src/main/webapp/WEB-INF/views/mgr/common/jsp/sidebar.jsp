@@ -37,7 +37,7 @@
                       <h6 class="overline-title text-primary-alt my-overline-title">대시보드</h6>
                     </li>
                     <li class="nk-menu-item" id="sidebar-dashboard">
-                      <a href="http://192.168.10.214${pageContext.request.contextPath}/mgr/dashboard/mgr_dashboard.do" class="nk-menu-link">
+                      <a href="${pageContext.request.contextPath}/mgr/dashboard/mgr_dashboard_frm.do" class="nk-menu-link">
                         <span class="nk-menu-icon">
                           <em class="icon ni ni-dashlite"></em>
                         </span>
@@ -48,7 +48,7 @@
                       <h6 class="overline-title text-primary-alt my-overline-title">사용자 관리</h6>
                     </li>
                   	<li class="nk-menu-item" id="sidebar-member">
-                      <a href="http://192.168.10.214${pageContext.request.contextPath}/mgr/member/mgr_member.do" class="nk-menu-link">
+                      <a href="${pageContext.request.contextPath}/mgr/member/mgr_member_list_frm.do" class="nk-menu-link">
                         <span class="nk-menu-icon">
                           <em class="icon ni ni-text-rich"></em>
                         </span>
@@ -72,7 +72,7 @@
                       </a>
                     </li>
                     <li class="nk-menu-item" id="sidebar-review">
-                      <a href="http://192.168.10.214${pageContext.request.contextPath}/mgr/review/mgr_review.do" class="nk-menu-link">
+                      <a href="${pageContext.request.contextPath}/mgr/review/mgr_review_list_frm.do" class="nk-menu-link">
                         <span class="nk-menu-icon">
                           <em class="icon ni ni-coins"></em>
                         </span>
@@ -99,7 +99,7 @@
                       <h6 class="overline-title text-primary-alt my-overline-title">관리자 관리</h6>
                     </li>
                     <li class="nk-menu-item" id="sidebar-manager">
-                      <a href="http://192.168.10.214${pageContext.request.contextPath}/mgr/manager/mgr_manager.do" class="nk-menu-link">
+                      <a href="${pageContext.request.contextPath}/mgr/manager/mgr_manager_list_frm.do" class="nk-menu-link">
                         <span class="nk-menu-icon">
                           <em class="icon ni ni-text-rich"></em>
                         </span>
