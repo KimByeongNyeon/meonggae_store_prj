@@ -24,6 +24,7 @@ public class ProductAddService {
 
 
     public List<ProductDomain> selectProductByUser(int memNum) {
+    	System.out.println("memNum: "+ memNum);
         return praDAO.selectProductByUser(memNum);
     }
     
@@ -45,15 +46,15 @@ public class ProductAddService {
             // 파일 저장
             img.transferTo(filePath.toFile());
 
-            // DB에 저장할 파일 경로 설정
-            product.setImg(storedFilename);
+            // DB에 저장할 파일명 설정
+            product.setImgFileName(storedFilename);
         }
 
         // 상품 정보를 DB에 저장
         praDAO.insertProduct(product);
 
         // 상품 이미지 정보를 DB에 저장 (필요시 구현)
-        // praDAO.insertProductImg(product);
+        praDAO.insertProductImg(product);
     }
 
 //    public void insertProduct(ProductDomain product, MultipartFile image) throws IOException {
