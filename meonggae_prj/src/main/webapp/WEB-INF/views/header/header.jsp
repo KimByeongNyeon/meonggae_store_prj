@@ -9,7 +9,7 @@
 				<div class="action pull-right">
 					<ul>
 						<li class="login"><a
-							href="http://localhost/meonggae_prj/index.do/logout.do"
+							href="http://localhost/meonggae_prj/logout.do"
 							class="login-btn"> <i class="fa fa-sign-out"></i>로그아웃
 						</a> / <a
 							href="http://localhost/meonggae_prj/My/mypage/main/myPageMain_frm.do"
