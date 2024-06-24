@@ -21,7 +21,9 @@ import com.store.meonggae.product.domain.SearchProductDetailDomain;
 import com.store.meonggae.product.domain.SearchProductDomain;
 import com.store.meonggae.product.service.CategoryService;
 import com.store.meonggae.product.service.SearchProductService;
+import com.store.meonggae.product.service.ProductDetailInfoService;
 import com.store.meonggae.product.vo.SearchProductVO;
+import com.store.meonggae.product.vo.SteamVO;
 import com.store.meonggae.user.login.domain.LoginDomain;
 
 
@@ -32,6 +34,8 @@ public class MainController {
 	private SearchProductService SearchProductService;
 	@Autowired
 	private CategoryService CategoryService;
+	@Autowired
+	private ProductDetailInfoService ProductDetailInfoService;
 
 	@RequestMapping(value="/index.do",method= {GET,POST})
 	public String main(Model model) {
@@ -83,12 +87,13 @@ public class MainController {
 		
 		return "main_page/search_contents";
 	}
-	//상세페이지 이동
+	//상세페이지 이동 
 	@GetMapping("/main_page/products_detail.do")
 	public String productDetail(HttpSession session, @RequestParam(name = "goodsNum", required = false) String goodsNum, Model model) {
 		// 사용자 정보를 세션에서 가져옴
         LoginDomain loginUser = (LoginDomain) session.getAttribute("user");
-        System.out.println(loginUser);
+        System.out.println("loginUser "+loginUser);
+        
 		//상품 상세
 		SearchProductDetailDomain spd = SearchProductService.selectPrdDetail(goodsNum);
 		
@@ -103,11 +108,21 @@ public class MainController {
 			List<CategoryDomain> subCateList = CategoryService.selectSubCategory(spd.getParentCategoryNum());
 			model.addAttribute("subCateList", subCateList);
 		}
-	    //판매자 정보
-	    //판매자 후기
-	    //찜 조회
+	    //상품의 전체 찜 횟수 조회
+		int countSteam = ProductDetailInfoService.countAllSteam(goodsNum);
+		spd.setCountSteam(countSteam);
+		//회원의 찜 여부 조회
+		if(loginUser != null) {
+			SteamVO steamVo = new SteamVO(spd.getGoodsNum(), loginUser.getMemNum());
+			boolean checkMemSteam = ProductDetailInfoService.checkMemSteam(steamVo);
+			System.out.println("steamVo "+steamVo);
+			System.out.println("checkMemSteam "+checkMemSteam);
+			model.addAttribute("checkMemSteam", checkMemSteam);
+		}
 	    
-		model.addAttribute("user", loginUser);
+		//판매자 정보
+		//판매자 후기
+		
 		model.addAttribute("spd", spd);
 		model.addAttribute("parentCateList", parentCateList);
 		

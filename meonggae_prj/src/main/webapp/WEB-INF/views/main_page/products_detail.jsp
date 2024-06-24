@@ -30,8 +30,9 @@
 <!-- header 시작 -->
 <jsp:include page="../header/header.jsp" />
 <!-- header 끝 -->
+<input type="hidden" name="user_memNum" value="${user.memNum}">
+<input type="hidden" name="checkMemSteam" value="${checkMemSteam}">
 <div class="container">
-
 	<div class="row">
 		<div class="products_categoryNavigation">
 			<span>전체</span> 
@@ -93,7 +94,7 @@
                     
                 <div class="col-md-9 col-sm-9">
                     <ul class="product-info-btn">
-                        <li><a><i class="fa fa-heart-o"></i> 0</a></li>
+                        <li><a><i class="fa fa-heart-o"></i> ${ spd.countSteam }</a></li>
 
                         <li><a><i class="fa fa-eye"></i> ${spd.cnt}</a></li>
 
