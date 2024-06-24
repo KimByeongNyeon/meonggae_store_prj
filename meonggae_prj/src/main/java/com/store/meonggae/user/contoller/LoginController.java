@@ -59,9 +59,10 @@ public class LoginController {
 
 			user.setPass("");
 			if (user.getId() != null) {
-				String decryptedId = te.decrypt(user.getId());
-				System.out.println("암호화된 ID: " + user.getId() + ", 복호화된 ID: " + decryptedId);
-				user.setId(decryptedId);
+				/*
+				 * String decryptedId = te.decrypt(user.getId()); System.out.println("암호화된 ID: "
+				 * + user.getId() + ", 복호화된 ID: " + decryptedId); user.setId(decryptedId);
+				 */
 			} else {
 				System.out.println("user.getId()가 null입니다.");
 			}

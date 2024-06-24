@@ -57,7 +57,7 @@ public class SearchProductService {
 
         return cateCnt;
     }
-    
+    //카테고리 번호로 카테고리 이름 조회하기
     public String selectCategoryName(String categoryNum) {
     	return spDAO.selectCategoryName(categoryNum);
     }

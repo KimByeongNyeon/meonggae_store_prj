@@ -1,9 +1,10 @@
 package com.store.meonggae.user.login.vo;
 
-
-
 public class LoginVO {
 	private String id, pass;
+
+	public LoginVO() {
+	}
 
 	public LoginVO(String id, String pass) {
 		super();

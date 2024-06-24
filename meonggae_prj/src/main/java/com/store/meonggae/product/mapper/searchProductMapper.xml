@@ -44,7 +44,7 @@ and CATEGORY_NUM=#{ categoryNum }
 <select id="selectPrdCateP" resultMap="searchProductDomain" parameterType="String">
 select *
 from v_select_all_goods
-where PARENT_CATEGORY_NUM=#{ categoryNum }
+where PARENT_CATEGORY_NUM=#{ categoryNum } or CATEGORY_NUM=#{ categoryNum }
 </select>
 <!-- 카테고리 단독 조회 - 자식-->
 <select id="selectPrdCate" resultMap="searchProductDomain" parameterType="String">

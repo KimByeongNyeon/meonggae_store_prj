@@ -71,7 +71,7 @@
                     <div class="tab-pane active" id="trending">
 
                     	<div class="single-products">
-							<c:forEach var="pd" items="${requestScope.list}" varStatus="i">
+							<c:forEach var="pd" items="${requestScope.prdAllList}" varStatus="i">
                             	<div class="single-product">
                             		<div class="product-block">
                             			<a href="main_page/products_detail.do?goodsNum=${ pd.goodsNum }">

@@ -2,6 +2,7 @@ package com.store.meonggae.user.login.service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -57,29 +58,64 @@ public class LoginService {
         return response.getBody();
          }
 
-    public Map<String, Object> getKaKaoUserInfo(String accessToken) throws Exception {
-        System.out.println("getKaKaoUserInfo method called");  // 메서드 호출 확인
-
-        // 1. 카카오 로그인 시 유저 정보를 가져오기 위한 url
+    public LoginDomain getKaKaoUserInfo(String accessToken) throws Exception {
         String url = "https://kapi.kakao.com/v2/user/me";
-        
-        // 2. REST-API 호출
         RestTemplate restTemplate = new RestTemplate();
 
-        // 3. headers 값 설정
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
 
-        HttpEntity<String> entity = new HttpEntity<String>(headers);
-
+        HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);
-        
-        
-        
-        // 5. LoginDomain에 추가
 
-        return response.getBody();
+        Map<String, Object> userInfo = response.getBody();
+        LoginDomain user = new LoginDomain();
+        
+        Random random = new Random();
+        long randomNumber = (long) (1000000000L + random.nextDouble() * 9000000000L);
+        
+        String randomPass = String.valueOf(randomNumber);
+        
+        String memId = null;
+        String nick = null;
+        String profile = null;
+        String pass = randomPass;
+
+        if (userInfo != null) {
+            Map<String, Object> kakaoAccount = (Map<String, Object>) userInfo.get("kakao_account");
+            if (kakaoAccount != null) {
+                memId = (String) kakaoAccount.get("email");
+            }
+
+            Map<String, Object> properties = (Map<String, Object>) userInfo.get("properties");
+            if (properties != null) {
+                nick = (String) properties.get("nickname");
+                profile = (String) properties.get("profile_image");
+            }
+        }
+
+        if (memId == null || nick == null || profile == null) {
+            throw new Exception("Failed to get user info from Kakao");
+        }
+
+        LoginVO loginVO = new LoginVO(memId);
+        LoginDomain existingUser = lDAO.login(loginVO);
+
+        if (existingUser == null) {
+            user.setId(memId);
+            user.setNick(nick);
+            user.setimg(profile);
+            user.setPass(pass);
+            lDAO.insertKakaoUser(user);
+        } else {
+            user = existingUser;
+        }
+
+        return user;
     }
+
+
+
     
 
 }

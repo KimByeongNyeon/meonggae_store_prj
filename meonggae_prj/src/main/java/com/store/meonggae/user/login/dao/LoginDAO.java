@@ -13,11 +13,20 @@ import com.store.meonggae.user.login.vo.LoginVO;
 public class LoginDAO {
 	@Autowired
 	private MybatisDAO mbDAO;
-	
+
 	public LoginDomain login(LoginVO lVO) throws PersistenceException {
-		try(SqlSession ss = mbDAO.getMyBatisHandler(false)){
+		try (SqlSession ss = mbDAO.getMyBatisHandler(false)) {
 			return ss.selectOne("com.store.meonggae.user_login.selectOneUser", lVO);
 		}
-		
+
 	}
+
+	public void insertKakaoUser(LoginDomain user) throws PersistenceException {
+		try (SqlSession ss = mbDAO.getMyBatisHandler(true)) {
+			ss.insert("com.store.meonggae.user_login.kakaoUserInsert", user);
+			ss.insert("com.store.meonggae.user_login.KaKaoIdInsert", user);
+			ss.commit();
+		}
+	}
+
 }

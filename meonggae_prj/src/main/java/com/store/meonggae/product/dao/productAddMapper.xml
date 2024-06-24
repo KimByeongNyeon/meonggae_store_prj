@@ -3,13 +3,43 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.store.meonggae.product">
-
-<select id="selectProductByUser" resultType="productDomain" parameterType="int">
-select gi.name as img, g.goods_num, g.mem_num_sell, g.mem_num_buy, g.category_num,
-g.name, g.detail, g.price, g.cnt, g.trade_method_code, g.location, g.quality_code, g.sell_status_code
-from GOODS g, goods_img gi ,member_detail md
-where g.goods_num = gi.goods_num and md.mem_num = g.mem_num_sell and md.mem_num = #{memNum, jdbcType=INTEGER}
-</select>
-<!-- <insert id="inserctProduct"></insert>
-<update id="updateProudct"></update>-->
+    
+    <!-- 상품을 사용자별로 선택 -->
+    <select id="selectProductByUser" resultType="com.store.meonggae.product.domain.ProductDomain"
+        parameterType="int">
+        select gi.name as img, g.goods_num, g.mem_num_sell, g.mem_num_buy,
+        g.category_num,
+        g.name, g.detail, g.price, g.cnt, g.trade_method_code, g.location,
+        g.quality_code, g.sell_status_code
+        from GOODS g, goods_img gi ,member_detail md
+        where g.goods_num = gi.goods_num and md.mem_num = g.mem_num_sell and
+        md.mem_num = #{memNum, jdbcType=INTEGER}
+    </select>
+    
+    <!-- 상품 추가 -->
+    <insert id="insertProduct"
+        parameterType="com.store.meonggae.product.domain.ProductDomain"
+        useGeneratedKeys="true" keyProperty="goodsNum">
+        <selectKey keyProperty="goodsNum" resultType="String" order="BEFORE">
+            select seq_goods.nextval from dual
+        </selectKey>
+        insert into goods (goods_num, mem_num_sell, name, detail,
+        price, cnt, trade_method_code, input_date, category_num, location,
+        quality_code, sell_status_code)
+        values (#{goodsNum}, #{memNum, jdbcType=INTEGER},
+        #{title}, #{content}, #{price}, #{cnt}, #{tradeMethodCode}, sysdate,
+        #{categoryNum}, #{location}, #{qualityCode}, #{sellStatusCode})
+    </insert>
+    
+    <!-- 상품 이미지 추가 -->
+    <insert id="insertProductImg"
+        parameterType="com.store.meonggae.product.domain.ProductDomain">
+        insert into goods_img (goods_img_num, goods_num, name, input_date)
+        values(seq_goods_img.nextval, #{goodsNum}, #{img}, sysdate)
+    </insert>
+    
+    <!-- 상품 업데이트 -->
+    <update id="updateProduct">
+        <!-- 업데이트 쿼리 내용을 여기에 추가하세요 -->
+    </update>
 </mapper>

@@ -35,21 +35,29 @@
 	<div class="row">
 		<div class="products_categoryNavigation">
 			<span>전체</span> 
-			<span> > </span> 
-			<select id="proCate-parent" name="proCate-parent">
-				<option value="여성의류">여성의류</option>
-				<option value="남성의류">남성의류</option>
-				<option value="신발">신발</option>
-				<option value="가방/지갑">가방/지갑</option>
-				<option value="스타굿즈">스타굿즈</option>
+			<span> > </span>
+			<!-- 대분류(부모)에 속한 상품인 경우 -->
+			<c:if test="${empty subCateList}">
+			<select id="proCate-parent" name="proCate-parent" onchange="selectedParent()">
+				<c:forEach var="list" items="${parentCateList}">
+     				<option value="${list.categoryNum}" ${list.categoryNum eq spd.categoryNum ? 'selected="selected"' : ''}>${list.name}</option>
+    			</c:forEach>
+			</select> 
+			</c:if>
+			<!-- 소분류(자식)에 속한 상품인 경우 -->
+			<c:if test="${not empty subCateList}">
+			<select id="proCate-parent" name="proCate-parent" onchange="selectedParent()">
+				<c:forEach var="list" items="${parentCateList}">
+     				<option value="${list.categoryNum}" ${list.categoryNum eq spd.parentCategoryNum ? 'selected="selected"' : ''}>${list.name}</option>
+    			</c:forEach>
 			</select> 
 			<span> > </span> 
-			<select id="proCate-child" name="proCate-child">
-				<option value="상의">상의</option>
-				<option value="바지">바지</option>
-				<option value="치마">치마</option>
-				<option value="원피스">원피스</option>
+			<select id="proCate-child" name="proCate-child" onchange="selectedSub()">
+				<c:forEach var="list" items="${subCateList}">
+     				<option value="${list.categoryNum}" ${list.categoryNum eq spd.categoryNum ? 'selected="selected"' : ''}>${list.name}</option>
+    			</c:forEach>
 			</select>
+			</c:if>
 		</div>
 	</div>
 	<div class="short-description">
@@ -87,7 +95,7 @@
                     <ul class="product-info-btn">
                         <li><a><i class="fa fa-heart-o"></i> 0</a></li>
 
-                        <li><a><i class="fa fa-eye"></i> 236</a></li>
+                        <li><a><i class="fa fa-eye"></i> ${spd.cnt}</a></li>
 
                         <li><a><i class="fa fa-clock-o"></i> ${spd.timeAgo}</a></li>
                     </ul>
@@ -105,10 +113,12 @@
 				</ul>
 				</div>
 				<div class="wish-talk-btn">
-					<button id="wishlist-btn" class="wishlist-btn"><i class="fa fa-heart-o"></i> 찜 0</button>
+					<button id="wishlist-btn" class="wishlist-btn">
+						<i class="fa fa-heart-o"></i> 찜 0
+					</button>
 					<button id="meonggaeTalk-btn" class="meonggaeTalk-btn">
-					<i class="fa fa-comments" aria-hidden="true"></i>
-					멍게톡</button>
+						<i class="fa fa-comments" aria-hidden="true"></i>멍게톡
+					</button>
 				</div>	
 
                 </div>

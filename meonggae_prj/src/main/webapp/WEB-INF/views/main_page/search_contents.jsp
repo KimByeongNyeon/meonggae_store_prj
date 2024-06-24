@@ -32,7 +32,7 @@
 <jsp:include page="../header/header.jsp" />
 <!-- header 끝 -->
 <div class="container">
-<c:if test="${not empty list}">
+<c:if test="${not empty searchPrdlist}">
 	<div class="row">
 		<div class="search_categoryNavigation">
 			<div class="p-css">
@@ -42,7 +42,7 @@
         				<c:if test="${i.index < 3}">
 						<div class="category-fav-item">
 						 <c:set var="categoryName" value="" />
-            			 <c:forEach var="item" items="${requestScope.list}">
+            			 <c:forEach var="item" items="${requestScope.searchPrdlist}">
                 			<c:if test="${entry.key == item.categoryNum}">
                     			<c:set var="categoryName" value="${item.categoryName}" />
                 			</c:if>
@@ -60,7 +60,7 @@
 					<c:if test="${i.index >= 3}">
 					<div class="category-item">
 					<c:set var="categoryName" value="" />
-            			 <c:forEach var="item" items="${requestScope.list}">
+            			 <c:forEach var="item" items="${requestScope.searchPrdlist}">
                 			<c:if test="${entry.key == item.categoryNum}">
                     			<c:set var="categoryName" value="${item.categoryName}" />
                 			</c:if>
@@ -87,7 +87,7 @@
                     <div class="tab-pane active" id="trending">
 
                     	<div class="single-products">
-							<c:forEach var="pd" items="${requestScope.list}" varStatus="i">
+							<c:forEach var="pd" items="${requestScope.searchPrdlist}" varStatus="i">
                             	<div class="single-product">
                             		<div class="product-block">
                             			<a href="http://localhost//meonggae_prj/main_page/products_detail.do?goodsNum=${ pd.goodsNum }">
@@ -116,7 +116,7 @@
 
 	</div>
 </c:if>
-<c:if test="${empty list}">
+<c:if test="${empty searchPrdlist}">
 	<div class="empty-list">
         <h1> ${requestScope.keyword } </h1>
         <h1> ${categoryName } </h1>

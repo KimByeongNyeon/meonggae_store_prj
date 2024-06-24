@@ -2,14 +2,16 @@ package com.store.meonggae.product.domain;
 
 
 public class ProductDomain {
-	private String img, name, detail, quality_code, category_num,  price, cnt, trade_method_code, category, location, sell_status_code;
-	
+	private String goods_num, img, name, detail, quality_code, category_num,  price, cnt, trade_method_code, category, location, sell_status_code;
+	private int memNum;
 	public ProductDomain() {
 		
 	}
 
-	public ProductDomain(String img, String name, String detail, String quality_code, String category_num, String price, String cnt,
+	public ProductDomain(int memNum, String goods_num, String img, String name, String detail, String quality_code, String category_num, String price, String cnt,
 			String trade_method_code, String category, String location, String sell_status_code) {
+		this.memNum = memNum;
+		this.goods_num = goods_num;
 		this.img = img;
 		this.name = name;
 		this.detail = detail;
@@ -23,7 +25,22 @@ public class ProductDomain {
 		this.sell_status_code = sell_status_code;
 	}
 	
-	
+	public int getMemNum() {
+		return memNum;
+	}
+
+	public void setMemNum(int memNum) {
+		this.memNum = memNum;
+	}
+
+	public String getGoods_num() {
+		return goods_num;
+	}
+
+	public void setGoods_num(String goods_num) {
+		this.goods_num = goods_num;
+	}
+
 	public String getImg() {
 		return img;
 	}
@@ -69,8 +86,8 @@ public class ProductDomain {
 		return price;
 	}
 
-	public void setPrice(String price) {
-		this.price = price;
+	public void setPrice(int productPrice) {
+		this.price = productPrice;
 	}
 
 	public String getCnt() {
@@ -115,9 +132,10 @@ public class ProductDomain {
 
 	@Override
 	public String toString() {
-		return "ProductDomain [img=" +img + "name=" + name + ", detail=" + detail + ", quality_code=" + quality_code + ", category_num=" + category_num + ", price="
-				+ price + ", cnt=" + cnt + ", trade_method_code=" + trade_method_code + ", category=" + category
-				+ ", location=" + location + ", sell_status_code=" + sell_status_code + "]";
+		return "ProductDomain [goods_num=" + goods_num + ", img=" + img + ", name=" + name + ", detail=" + detail
+				+ ", quality_code=" + quality_code + ", category_num=" + category_num + ", price=" + price + ", cnt="
+				+ cnt + ", trade_method_code=" + trade_method_code + ", category=" + category + ", location=" + location
+				+ ", sell_status_code=" + sell_status_code + ", memNum=" + memNum + "]";
 	}
 
 	
