@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.meonggae.product.ProductDetailInfoMapper">
+
+<!-- 공통쿼리문 작성 -->
+<sql id="countSteam">
+select count(*)
+from STEAM s
+JOIN MEMBER m ON s.MEM_NUM = m.MEM_NUM
+where m.MEM_STATUS in ('N', 'S')
+and s.steam_flag='Y'
+</sql>
+
+<!-- 상품의 전체 찜 횟수 조회 -->
+<select id="countAllSteam" resultType="int" parameterType="String">
+<include refid="countSteam"/>
+and s.goods_num=#{ goodsNum }
+</select>
+
+<!-- 회원의 찜 여부 조회 찜했으면 1 아니면 0-->
+<select id="checkMemSteam" resultType="int" parameterType="com.store.meonggae.product.vo.SteamVO">
+<include refid="countSteam"/>
+and s.goods_num=#{ goodsNum }
+and s.mem_num=#{ memNum }
+</select>
+
+
+</mapper>
