@@ -3,9 +3,14 @@
     info="개인정보 수정"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 로그인 세션 설정 시작 -->
-<%
-
-%>
+<c:choose>
+	<c:when test="${ empty user }">
+		<script type="text/javascript">
+			alert("로그인이 필요한 서비스입니다.");
+			location.href="http://localhost/meonggae_prj/index.do";
+		</script>
+	</c:when>
+	<c:otherwise>
 <!-- 로그인 세션 설정 끝 -->
 
 <!-- header -->
@@ -195,3 +200,6 @@
 <!-- footer -->
 <c:import url="/WEB-INF/views/footer/footer.jsp"/>
 <!-- footer -->
+
+	</c:otherwise>
+</c:choose>

@@ -37,13 +37,13 @@
 
 <script type="text/javascript">
 	$(function(){
-		$('#pagination-demo').twbsPagination({
+		/* $('#pagination-demo').twbsPagination({
 	        totalPages: 6,
 	        visiblePages: 10,
 	        onPageClick: function (event, page) {
 	            $('#page-content').text('Page ' + page);
 	        }
-	    });
+	    }); */
 	});//ready
 </script>
 
@@ -78,8 +78,8 @@ String nick = request.getParameter("nick");
 				<div class="col-md-3 col-sm-4">
 					<div class="single-product">
 						<div class="product-block">
-						<a href="http://localhost/meonggae_prj/main_page/products_detail.do?goodsNum=${ is.goodsNum }">
 						
+						<a href="http://localhost/meonggae_prj/main_page/products_detail.do?goodsNum=${ is.goodsNum }">
 							<img src="../../products-img/${ is.img }" class="thumbnail">
 							<div class="product-description text-left">
 								<p class="title">${ is.name }</p>
@@ -88,8 +88,8 @@ String nick = request.getParameter("nick");
 								<p class="time-ago" style="float: right;">${ is.inputDate }</p>
 								</div>
 							</div>
-							
 						</a>
+						
 						</div>
 					</div>
 				</div>

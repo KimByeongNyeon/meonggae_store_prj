@@ -21,9 +21,13 @@
 	<typeAlias type="com.store.meonggae.product.domain.ProductDomain" alias="productDomain"/>
 	
 <!-- store,my -->
+	<!-- store -->
 	<typeAlias type="com.store.meonggae.my.store.domain.StoreMainDomain" alias="storeMainDomain"/>
 	<typeAlias type="com.store.meonggae.my.store.domain.ReviewDomain" alias="reviewDomain"/>
 	<typeAlias type="com.store.meonggae.my.store.VO.ReviewVO" alias="reviewVO"/>
+	
+	<!-- my -->
+	<typeAlias type="com.store.meonggae.my.domain.GoodsDomain" alias="goodsDomain"/>
 <!-- store,my -->
 
 </typeAliases>
@@ -47,7 +51,12 @@
     <mapper resource="com/store/meonggae/product/dao/productAddMapper.xml"/>
     
    	<!-- 내상점, 마이페이지 시작 -->
+	   	<!-- 내상점 -->
     <mapper resource="com/store/meonggae/my/store/dao/mapper/storeMapper.xml"/>
+    
+	   	<!-- 마이페이지 -->
+    <mapper resource="com/store/meonggae/my/dao/mapper/MypageMainMapper.xml"/>
+    
     <!-- 내상점, 마이페이지 끝 -->
   </mappers>
 </configuration>
