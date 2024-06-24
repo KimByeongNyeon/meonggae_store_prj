@@ -114,7 +114,7 @@ public class LoginService {
 			user.setNick(nick);
 			user.setimg(profile);
 			user.setPass(pass);
-			
+			lDAO.insertKakaoUser(user);
 		} else {
 			user = existingUser;
 		}
