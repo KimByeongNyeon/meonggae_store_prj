@@ -37,6 +37,7 @@
     <mapper resource="com/store/meonggae/event/dao/eventMapper.xml"/>
     <mapper resource="com/store/meonggae/product/mapper/categoryMapper.xml"/>
     <mapper resource="com/store/meonggae/product/mapper/searchProductMapper.xml"/>
+    <mapper resource="com/store/meonggae/product/mapper/productDetailInfoMapper.xml"/>
     <mapper resource="com/store/meonggae/product/dao/productAddMapper.xml"/>
     
    	<!-- 내상점, 마이페이지 시작 -->
