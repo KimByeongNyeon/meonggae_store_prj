@@ -7,7 +7,15 @@ jQuery(document).ready(function($) {
 	$("#wishlist-btn").click(function() {
 		if(checkLogin()){//로그인여부 확인
 			//찜 여부 확인
-			wishedCss();//버튼css변경
+			var checkMemSteam = $('input[name="checkMemSteam"]').val();
+			if(checkMemSteam == 'true'){
+				//찜한 회원 -> 찜 삭제
+				updateSteamToN();
+			
+			}else if(checkMemSteam == 'false'){
+				//찜 안한 회원 -> 찜 등록
+				insertSteam();
+			}//end if
 		}//end if
 	});//click
 	
@@ -53,11 +61,12 @@ function checkLogin(){
     return true;// 로그인한 경우 true 반환
 }//checkLogin
 
-//회원의 찜 여부에 따른 css 변경
+//회원의 찜 여부에 따른 기본 css 설정
 function checkMemSteam(){
 	var checkMemSteam = $('input[name="checkMemSteam"]').val();
-	alert(checkMemSteam);
-	if(checkMemSteam == true || checkMemSteam == 'true'){
+
+	//찜했으면 true
+	if(checkMemSteam == 'true'){
 		$("#wishlist-btn").addClass("wished");
 		$("#wishlist-btn").html('<i class="fa fa-heart"></i> 찜 1');
 	}else{
@@ -66,13 +75,43 @@ function checkMemSteam(){
 	}//end else;
 }//checkMemSteam
 
-// 클릭하면 css변경
-function wishedCss(){
-	if ($("#wishlist-btn").hasClass("wished")) {
-		$("#wishlist-btn").removeClass("wished");
-		$("#wishlist-btn").html('<i class="fa fa-heart-o"></i> 찜 0');
-	}else{
-		$("#wishlist-btn").addClass("wished");
-		$("#wishlist-btn").html('<i class="fa fa-heart"></i> 찜 1');
-	}//end else
-}//wishedCss
+//찜 등록
+function insertSteam(){
+	var memNum = $('input[name="user_memNum"]').val();
+	var goodsNum = $('input[name="goodsNum"]').val();
+	$.ajax({
+		type:'GET',
+		url:'http://localhost/meonggae_prj/insertSteam.do',
+		dataType:"text",
+		data:{goodsNum:goodsNum, memNum:memNum},
+		error: function(xhr){
+		 console.log('찜 등록 실패', xhr.status);
+		},
+		success: function(data){
+			if(data == '1'){
+				location.reload(true);
+			}//end if
+		}//success
+	});//ajax
+}//updateSteamToN
+
+//찜 삭제
+function updateSteamToN(){
+	var memNum = $('input[name="user_memNum"]').val();
+	var goodsNum = $('input[name="goodsNum"]').val();
+	$.ajax({
+		type:'GET',
+		url:'http://localhost/meonggae_prj/updateSteam.do',
+		dataType:"text",
+		data:{goodsNum:goodsNum, memNum:memNum},
+		error: function(xhr){
+		 console.log('찜 삭제 실패', xhr.status);
+		},
+		success: function(data){
+			if(data == '1'){
+				location.reload(true);
+			}//end if
+		}//success
+	});//ajax
+}//updateSteamToN
+
