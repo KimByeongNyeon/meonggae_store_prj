@@ -1,7 +1,5 @@
 package com.store.meonggae.my.store.domain;
 
-import java.sql.Date;
-
 public class StoreMainDomain {
 	
 	private int goodsNum, rnum;

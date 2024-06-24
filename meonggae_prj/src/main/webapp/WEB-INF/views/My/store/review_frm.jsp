@@ -2,9 +2,26 @@
     pageEncoding="UTF-8"
     info="나의 상점_리뷰"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- 로그인 세션 설정 시작 -->
 <c:choose>
-	<c:when test="${not empty user}">
+<c:when test="${ empty param.nick }">
+		<c:choose>
+		<c:when test="${ empty user }">
+			<script type="text/javascript">
+				alert("로그인이 필요한 서비스입니다.");
+				location.href="http://localhost/meonggae_prj/index.do";
+			</script>
+		</c:when>
+		<c:otherwise>
+			<script type="text/javascript">
+				alert("비정상적인 접근입니다.");
+				location.href="http://localhost/meonggae_prj/index.do";
+			</script>
+		</c:otherwise>
+		</c:choose>
+</c:when>
+<c:otherwise>
 <!-- 로그인 세션 설정 끝 -->
 
 <!-- header -->
@@ -14,12 +31,59 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/style.css">
-<link rel="stylesheet" href="http://localhost/meonggae_prj/common/My/css/style_store.css?after">
+<link rel="stylesheet" href="http://localhost/meonggae_prj/common/My/css/style_store.css?after12">
 <!-- CSS -->
 
 <script type="text/javascript">
+			
 	$(function(){
+		var startNum = 3;
+		var endNum = 4;
 		
+		$("#moreReviewBtn").click(function(){
+			
+			var url = new URL(window.location.href);
+			var params = url.searchParams;
+			var nick = params.get("nick");
+
+			
+			$.ajax({
+				url: "http://localhost/meonggae_prj/My/store/store_more_review.do?nick=" + nick + "&startNum="
+						+ startNum + "&endNum=" + endNum,
+				type: "GET",
+				error: function(xhr){
+					console.log(xhr.status);
+				},
+				success: function(list){
+					console.dir(list);
+					var output = "";
+					
+					if(list == ""){
+						output += "<div class=\"noMoreReview\">";
+						output += "마지막 리뷰입니다.";
+						output += "</div>";
+						$("#output").append(output);
+						$("#moreReviewBtn").css("display", "none");
+						return;
+					}//end if
+					
+					$.each(list, function(i, data){
+						output += "<div class=\"reviewerName\">" + data.writer + "</div>";
+						output += "<span class=\"stars\">★</span><span class=\"scoreFont\">"
+							+ data.starScore + "점</span>";
+						output += "<div class=\"reviewContent\">" + data.content + "</div>";
+						output += "<hr>";
+					});
+					
+					
+					$("#output").append(output);
+				}//success
+			});//ajax
+			
+			startNum += 2;
+			endNum += 2;
+			
+		});//moreReviewBtn
 	});//ready
 </script>
 
@@ -38,51 +102,51 @@ String nick = request.getParameter("nick");
 		</div>
 	</div>
 	<div id="storeMenu" class="storeMenu">
-		<a href="http://localhost/meonggae_prj/My/store/store_frm.do?nick=${user.nick}" id="unSelected">상품</a> | 
-		<a href="http://localhost/meonggae_prj/My/store/store_review_frm.do?nick=${user.nick}" id="selected">후기</a>
+		<a href="http://localhost/meonggae_prj/My/store/store_frm.do?nick=${param.nick}" id="unSelected">상품</a> | 
+		<a href="http://localhost/meonggae_prj/My/store/store_review_frm.do?nick=${param.nick}" id="selected">후기</a>
 	</div>
 	
-	<%
-	double score = 3.3;
-	double score2 = (double)score/5;
-	int width = (int)(score2*100);
+	<c:choose>
+		<c:when test="${not empty listReview}">
 	
-	double tempScore = 4.5;
-	double temp = tempScore%1;
-	System.out.println(temp);
-	%>
-	<div class="totalStarScore">
-		<%= score %><br/>
-		<div class="wrap-star">
-		    <div class="star-rating">
-		        <span style ="width:<%=width%>%;"></span>
-		    </div>
-		</div>
-	</div>
-	
-	
-	
-	<hr style="color: #606060;">
-	<div class="review">
-		<div class="reviewerName">집에가고싶은사람</div>
-		<div class="stars">★★★★☆</div>
-		<div class="reviewContent">너무졸려요!!</div>
-	</div>
-	<hr>
-	<div class="moreReviewWrap">
-	<input type="button" value="더보기" class="moreReviewBtn"/>
-	</div>
+			<div class="totalStarScore">
+				<fmt:formatNumber value="${starScore}" pattern=".0"/><br/>
+				<div class="wrap-star">
+				    <div class="star-rating">
+				        <span style ="width: ${scoreWidth}%;"></span>
+				    </div>
+				</div>
+			</div>
+			
+			<hr style="color: #606060;">
+			<c:forEach var="i" items="${listReview}">
+				<div class="reviewerName">${i.writer}</div>
+				<span class="stars">★</span><span class="scoreFont">${ i.starScore }점</span>
+				<div class="reviewContent">${i.content}</div>
+			<hr>
+			</c:forEach>
+			
+			<div id="output" class="output">
+			</div>
+			
+			<div class="moreReviewWrap">
+			<input type="button" value="더보기" id="moreReviewBtn" class="moreReviewBtn"/>
+			</div>
+			
+		</c:when>
+		<c:otherwise>
+			<hr>
+			<div class="noReview">
+			아직 작성된 후기가 없습니다!
+			</div>
+		</c:otherwise>
+	</c:choose>
 </div>
+<!-- 내용 끝 -->
 
 <!-- footer -->
 <c:import url="/WEB-INF/views/footer/footer.jsp"/>
 <!-- footer -->
 
-	</c:when>
-	<c:otherwise>
-		<script type="text/javascript">
-			alert("로그인이 필요한 서비스입니다.");
-			location.href="http://localhost/meonggae_prj/index.do";
-		</script>
 	</c:otherwise>
 </c:choose>

@@ -6,7 +6,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 로그인 세션 설정 시작 -->
 <c:choose>
-	<c:when test="${not empty user}">
+<c:when test="${ empty param.nick }">
+		<c:choose>
+		<c:when test="${ empty user }">
+			<script type="text/javascript">
+				alert("로그인이 필요한 서비스입니다.");
+				location.href="http://localhost/meonggae_prj/index.do";
+			</script>
+		</c:when>
+		<c:otherwise>
+			<script type="text/javascript">
+				alert("비정상적인 접근입니다.");
+				location.href="http://localhost/meonggae_prj/index.do";
+			</script>
+		</c:otherwise>
+		</c:choose>
+</c:when>
+<c:otherwise>
 <!-- 로그인 세션 설정 끝 -->
 
 <!-- header -->
@@ -46,11 +62,14 @@ String nick = request.getParameter("nick");
 		</div>
 	</div>
 		<span id="storeMenu" class="storeMenu">
-			<a href="http://localhost/meonggae_prj/My/store/store_frm.do?nick=${user.nick}" id="selected">상품</a> | 
-			<a href="http://localhost/meonggae_prj/My/store/store_review_frm.do?nick=${user.nick}" id="unSelected">후기</a>　　　
+			<a href="http://localhost/meonggae_prj/My/store/store_frm.do?nick=${param.nick}" id="selected">상품</a> | 
+			<a href="http://localhost/meonggae_prj/My/store/store_review_frm.do?nick=${param.nick}" id="unSelected">후기</a>　　　
 			<a href="http://localhost/meonggae_prj/My/mypage/main/myPageMain_frm.do" id="unSelected">@@마이페이지진입/임시@@</a>
 		</span>
 	<hr>
+	
+	<c:choose>
+	<c:when test="${not empty listSales}">
 	
 	<div class="row">
 		<div class="tab-content">
@@ -79,20 +98,22 @@ String nick = request.getParameter("nick");
 		</div>
 	</div>
 	
-<ul id="pagination-demo" class="pagination-sm"></ul>
-	
+	<ul id="pagination-demo" class="pagination-sm"></ul>
+	</c:when>
+	<c:otherwise>
+		
+		<div class="noReview">
+		판매중인 상품이 없습니다!
+		</div>
+		
+	</c:otherwise>
+	</c:choose>
 </div>
 <!-- 내용 끝 -->
 
 <!-- footer -->
 <c:import url="/WEB-INF/views/footer/footer.jsp"/>
 <!-- footer -->
-	
-	</c:when>
-	<c:otherwise>
-		<script type="text/javascript">
-			alert("로그인이 필요한 서비스입니다.");
-			location.href="http://localhost/meonggae_prj/index.do";
-		</script>
+
 	</c:otherwise>
 </c:choose>
