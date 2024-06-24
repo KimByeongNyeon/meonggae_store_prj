@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" info=""%>
+    pageEncoding="UTF-8" info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -10,37 +10,37 @@
 
 <!-- jQuery CDN -->
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
-	crossorigin="anonymous">
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+    integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+    crossorigin="anonymous">
 
 <!-- Latest compiled and minified JavaScript -->
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-	crossorigin="anonymous"></script>
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+    integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+    crossorigin="anonymous"></script>
 <!-- Google Font -->
 <link
-	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Raleway:400,300,500,700,600'
-	rel='stylesheet' type='text/css'>
+    href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Raleway:400,300,500,700,600'
+    rel='stylesheet' type='text/css'>
 
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"
-	type="text/css">
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"
+    type="text/css">
 <!-- Theme Stylesheet -->
 <script src="../common/JS/script.js"></script>
 <script src="../common/JS/tab.js"></script>
 <script src="../common/JS/product_add.js"></script>
 <link rel="stylesheet"
-	href="http://localhost/meonggae_prj/common/CSS/style.css?v=1.0">
+    href="http://localhost/meonggae_prj/common/CSS/style.css?v=1.0">
 <link rel="stylesheet"
-	href="http://localhost/meonggae_prj/common/CSS/tab.css?v=1.0">
+    href="http://localhost/meonggae_prj/common/CSS/tab.css?v=1.0">
 <link rel="stylesheet"
-	href="http://localhost/meonggae_prj/common/CSS/product_add.css?v=1.0">
+    href="http://localhost/meonggae_prj/common/CSS/product_add.css?v=1.0">
 </head>
 
 <body>
@@ -55,58 +55,58 @@
             </ul>
             <div class="tabcontent">
                 <div id="tab01">
-                    <form name="newProduct" action="" class="form-horizontal" method="post">
+                    <form name="newProduct" action="${pageContext.request.contextPath}/product_page/product_add.do" class="form-horizontal" method="post" enctype="multipart/form-data">
                         <div class="form-section">
-                 <div class="form-group">
-                    <label for="image">상품이미지</label>
-                    <img id="image-preview" class="image-preview" src="">
-                    <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
-                </div>
-                <div class="form-group">
-                    <label for="product-name">상품명</label>
-                    <input type="text" id="product-name" name="product-name">
-                </div>
-                <div class="form-group">
-                    <label for="category">카테고리</label>
-                    <select id="category" name="category">
-                        <option value="여성의류">여성의류</option>
-                        <option value="남성의류">남성의류</option>
-                        <option value="신발">신발</option>
-                        <option value="가방/지갑">가방/지갑</option>
-                        <option value="시계">시계</option>
-                        <option value="쥬얼리">쥬얼리</option>
-                        <option value="패션 악세서리">패션 악세서리</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="product-name">가격</label>
-                    <input type="text" id="product-price" name="product-price">
-                </div>
-            </div>
-            <div class="form-section">
-                <div class="form-group">
-                    <label>물품 상태</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="condition" value="미개봉"> 미개봉</label>
-                        <label><input type="radio" name="condition" value="거의 새 것"> 거의 새 것</label>
-                        <label><input type="radio" name="condition" value="사용감 있음"> 사용감 있음</label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                    <label for="product-name">직거래 장소</label>
-                    <input type="text" id="trade-addr" name="trade-addr">
-                </div>
-            <div class="form-section">
-                <div class="form-group">
-                    <label for="description">설명</label>
-                    <textarea id="description" name="description" rows="5"></textarea>
-                </div>
-            </div>
-            <div class="form-actions">
-                <button type="submit" class="btn">등록하기</button>
-                <button type="button" class="btn btn-secondary">임시저장</button>
-            </div>
+                            <div class="form-group">
+                                <label for="image">상품이미지</label>
+                                <img id="image-preview" class="image-preview" src="">
+                                <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
+                            </div>
+                            <div class="form-group">
+                                <label for="product-name">상품명</label>
+                                <input type="text" id="product-name" name="product-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">카테고리</label>
+                                <select id="category" name="category" required>
+                                    <option value="여성의류">여성의류</option>
+                                    <option value="남성의류">남성의류</option>
+                                    <option value="신발">신발</option>
+                                    <option value="가방/지갑">가방/지갑</option>
+                                    <option value="시계">시계</option>
+                                    <option value="쥬얼리">쥬얼리</option>
+                                    <option value="패션 악세서리">패션 악세서리</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-price">가격</label>
+                                <input type="text" id="product-price" name="product-price" required>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <div class="form-group">
+                                <label>물품 상태</label>
+                                <div class="radio-group">
+                                    <label><input type="radio" name="condition" value="미개봉" required> 미개봉</label>
+                                    <label><input type="radio" name="condition" value="거의 새 것" required> 거의 새 것</label>
+                                    <label><input type="radio" name="condition" value="사용감 있음" required> 사용감 있음</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="trade-addr">직거래 장소</label>
+                            <input type="text" id="trade-addr" name="trade-addr" required>
+                        </div>
+                        <div class="form-section">
+                            <div class="form-group">
+                                <label for="description">설명</label>
+                                <textarea id="description" name="description" rows="5" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" id = "add" class="btn">등록하기</button>
+                            <button type="button" class="btn btn-secondary">임시저장</button>
+                        </div>
                     </form>
                 </div>
                 <div id="tab02">

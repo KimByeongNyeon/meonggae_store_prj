@@ -45,14 +45,14 @@ public class ProductController {
 
     @PostMapping("/product_page/product_add.do")
     public String handleProductAdd(@RequestParam("product-name") String productName,
-                                   @RequestParam("product-price") int productPrice,
+                                   @RequestParam("product-price") String productPrice,
                                    @RequestParam("description") String productDescription,
                                    @RequestParam("category") String category,
                                    @RequestParam("condition") String condition,
                                    @RequestParam("trade-addr") String tradeAddr,
                                    @RequestParam("image") MultipartFile image,
                                    HttpSession session,
-                                   RedirectAttributes redirectAttributes) {
+                                   RedirectAttributes redirectAttributes) throws IOException {
         // 사용자 정보를 세션에서 가져옴
         LoginDomain loginUser = (LoginDomain) session.getAttribute("user");
 
@@ -67,13 +67,7 @@ public class ProductController {
             product.setQuality_code(condition);
             product.setLocation(tradeAddr);
 
-            try {
-                productAddService.insertProduct(product, image);
-            } catch (IOException e) {
-                e.printStackTrace();
-                redirectAttributes.addFlashAttribute("message", "상품 등록 중 오류가 발생했습니다.");
-                return "redirect:/product_page/product_add.do";
-            }
+            productAddService.insertProduct(product, image);
 
             return "redirect:/product_page/product_list.do";
         } else {
@@ -81,4 +75,6 @@ public class ProductController {
             return "redirect:/index.do";
         }
     }
+
+
 }

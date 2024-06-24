@@ -86,8 +86,8 @@ public class ProductDomain {
 		return price;
 	}
 
-	public void setPrice(int productPrice) {
-		this.price = productPrice;
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 	public String getCnt() {
