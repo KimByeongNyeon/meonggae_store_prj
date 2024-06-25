@@ -27,15 +27,15 @@
         price, cnt, trade_method_code, input_date, category_num, location,
         quality_code, sell_status_code)
         values (#{goodsNum}, #{memNum, jdbcType=INTEGER},
-        #{title}, #{content}, #{price}, #{cnt}, #{tradeMethodCode}, sysdate,
-        #{categoryNum}, #{location}, #{qualityCode}, #{sellStatusCode})
+        #{name}, #{detail}, #{price}, 0, #{trade_method_code, jdbcType=CHAR}, sysdate,
+        #{category_num, jdbcType=VARCHAR}, #{location, jdbcType=VARCHAR}, #{quality_code, jdbcType=VARCHAR}, #{sell_status_code, jdbcType=CHAR})
     </insert>
     
     <!-- 상품 이미지 추가 -->
     <insert id="insertProductImg"
         parameterType="com.store.meonggae.product.domain.ProductDomain">
         insert into goods_img (goods_img_num, goods_num, name, input_date)
-        values(seq_goods_img.nextval, #{goodsNum}, #{img}, sysdate)
+        values(seq_goods_img.nextval, #{goodsNum}, #{imgFileName}, sysdate)
     </insert>
     
     <!-- 상품 업데이트 -->

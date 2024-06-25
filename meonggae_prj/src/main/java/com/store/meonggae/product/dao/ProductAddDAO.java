@@ -22,15 +22,15 @@ public class ProductAddDAO {
         }
     }
 
-    public int insertProduct(ProductDomain product) {
+    public void insertProduct(ProductDomain product) {
         try (SqlSession ss = mbDAO.getMyBatisHandler(true)) {
-            return ss.insert("com.store.meonggae.product.insertProduct", product);
+            ss.insert("com.store.meonggae.product.insertProduct", product);
         }
     }
 
-    public int insertProductImg(ProductDomain product) {
+    public void insertProductImg(ProductDomain product) {
         try (SqlSession ss = mbDAO.getMyBatisHandler(true)) {
-            return ss.insert("com.store.meonggae.product.insertProductImg", product);
+             ss.insert("com.store.meonggae.product.insertProductImg", product);
         }
     }
 

@@ -1,8 +1,10 @@
 package com.store.meonggae.user.contoller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +28,8 @@ public class ProductController {
 
     @GetMapping("/product_page/product_add.do")
     public String productAdd(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+    	LoginDomain loginUser = (LoginDomain) session.getAttribute("user");
         // 사용자 정보를 세션에서 가져옴
-        LoginDomain loginUser = (LoginDomain) session.getAttribute("user");
 
         if (loginUser != null) {
             int memNum = loginUser.getMemNum();
@@ -44,41 +46,32 @@ public class ProductController {
     }
 
     @PostMapping("/product_page/product_add.do")
-    public String handleProductAdd(@RequestParam("product-name") String productName,
-                                   @RequestParam("product-price") int productPrice,
-                                   @RequestParam("description") String productDescription,
-                                   @RequestParam("category") String category,
-                                   @RequestParam("condition") String condition,
-                                   @RequestParam("trade-addr") String tradeAddr,
-                                   @RequestParam("image") MultipartFile image,
-                                   HttpSession session,
-                                   RedirectAttributes redirectAttributes) {
+    public String handleProductAdd(Model model, ProductDomain product, MultipartFile img, HttpSession session, RedirectAttributes redirectAttributes) throws IOException {
         // 사용자 정보를 세션에서 가져옴
         LoginDomain loginUser = (LoginDomain) session.getAttribute("user");
 
-        if (loginUser != null) {
-            // 상품 등록 로직 수행
-            ProductDomain product = new ProductDomain();
-            product.setMemNum(loginUser.getMemNum());
-            product.setName(productName);
-            product.setPrice(productPrice);
-            product.setDetail(productDescription);
-            product.setCategory_num(category);
-            product.setQuality_code(condition);
-            product.setLocation(tradeAddr);
-
-            try {
-                productAddService.insertProduct(product, image);
-            } catch (IOException e) {
-                e.printStackTrace();
-                redirectAttributes.addFlashAttribute("message", "상품 등록 중 오류가 발생했습니다.");
-                return "redirect:/product_page/product_add.do";
-            }
-
-            return "redirect:/product_page/product_list.do";
-        } else {
-            redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
+        if (loginUser == null) {
+            redirectAttributes.addFlashAttribute("message", "로그인이 필요한 서비스 입니다.");
             return "redirect:/index.do";
         }
+
+        // 사용자 정보 설정
+        product.setMemNum(loginUser.getMemNum());
+        System.out.println("memNum "+loginUser.getMemNum());
+
+        if (img == null || img.isEmpty()) {
+            model.addAttribute("uploadFlag", false);
+            model.addAttribute("message", "이미지 파일이 필요합니다.");
+            return "product_page/product_add";
+        }
+
+        // 상품 등록 서비스 호출
+        productAddService.insertProduct(product, img);
+
+        // 모델에 필요한 정보 추가
+        model.addAttribute("uploadFlag", true);
+
+        return "product_page/product_add";
     }
+
 }
