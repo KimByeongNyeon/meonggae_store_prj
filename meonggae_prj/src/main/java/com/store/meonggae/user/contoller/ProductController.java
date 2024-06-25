@@ -73,5 +73,34 @@ public class ProductController {
 
         return "product_page/product_add";
     }
+    
+	
+	  @GetMapping("/product_page/tab01.do") public String productAdd() { // 사용자 정보를
+
+	  return "product_page/tab01";
+	  
+	  
+	  }
+	 
+    
+    @GetMapping("/product_page/tab02.do")
+    public String productChange(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+    	LoginDomain loginUser = (LoginDomain) session.getAttribute("user");
+        // 사용자 정보를 세션에서 가져옴
+
+        if (loginUser != null) {
+            int memNum = loginUser.getMemNum();
+            List<ProductDomain> productList = productAddService.selectProductByUser(memNum);
+            System.out.println(productList);
+            model.addAttribute("productList", productList);
+            model.addAttribute("user", loginUser);
+            model.addAttribute("memNum", loginUser.getMemNum());
+            return "product_page/tab02";
+        } else {
+            redirectAttributes.addFlashAttribute("message", "로그인이 필요한 서비스 입니다.");
+            return "redirect:/index.do";
+        }
+    	
+    }
 
 }
