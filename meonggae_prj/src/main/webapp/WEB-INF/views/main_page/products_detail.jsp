@@ -212,16 +212,20 @@
         <h3 class="modal-title"><strong>신고하기</strong></h3>
       </div>
       <div class="modal-body">
-        <form action="reportFrm" id="reportFrm" name="reportFrm">
-			<select id="report-title" name="report-title">
-				<option value="" selected="selected">---- 신고 유형 선택 ----</option>
-				<option value="광고성 콘텐츠(상점)예요.">광고성 콘텐츠(상점)예요.</option>
-				<option value="상품정보가 부정확해요.">상품정보가 부정확해요.</option>
-				<option value="거래금지 품목으로 판단돼요.">거래금지 품목으로 판단돼요.</option>
-				<option value="사기가 의심돼요.(외부 채널 유도)">사기가 의심돼요.(외부 채널 유도)</option>
-				<option value="기타">기타</option>
+        <form action="http://localhost/meonggae_prj/insertReport.do" method="post" id="reportFrm" name="reportFrm">
+        	<input type="hidden" name="iGoodsNum" value="${ spd.goodsNum }">
+        	<input type="hidden" name="iMemNumRep" value="${ user.memNum }">
+			<select id="report-category" name="iCategory">
+				<option value="0" selected="selected">---- 신고 유형 선택 ----</option>
+				<option value="1">광고성 콘텐츠(상점)예요.</option>
+				<option value="2">상품정보가 부정확해요.</option>
+				<option value="3">거래금지 품목으로 판단돼요.</option>
+				<option value="4">사기가 의심돼요.(외부 채널 유도)</option>
+				<option value="5">기타</option>
 			</select><br>
-			<textarea></textarea><br>
+        	<input type="text" name="iTitle" style="width: 100%" placeholder="신고 제목" maxlength="100"/>
+			<textarea name="iContents" placeholder="신고 내용을 작성해주세요. 자세하게 적어주시면 신고처리에 큰 도움이 됩니다." maxlength="1000"></textarea><br>
+			<p>※ 신고 내용은 1000자 이내로 작성해 주세요.</p>
 		</form>
       </div>
       <div class="modal-footer">

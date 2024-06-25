@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.store.meonggae.product.dao.ProductDetailInfoDAO;
+import com.store.meonggae.product.vo.ReportVO;
 import com.store.meonggae.product.vo.SteamVO;
 
 @Service
@@ -40,6 +41,11 @@ public class ProductDetailInfoService {
     //찜 삭제
     public int updateSteamToN(SteamVO steamVO) {
     	return pdiDAO.updateSteamToN(steamVO);
+    }
+    
+    //신고하기 insert
+    public void insertReport(ReportVO reportVO) {
+    	pdiDAO.insertReport(reportVO);
     }
     
 }
