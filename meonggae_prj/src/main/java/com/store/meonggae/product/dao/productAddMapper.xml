@@ -7,12 +7,12 @@
     <!-- 상품을 사용자별로 선택 -->
     <select id="selectProductByUser" resultType="com.store.meonggae.product.domain.ProductDomain"
         parameterType="int">
-        select gi.name as img, g.goods_num, g.mem_num_sell, g.mem_num_buy,
-        g.category_num,
+        select gi.name as imgFileName, g.goods_num, g.mem_num_sell, g.mem_num_buy,
+        g.category_num, gc.name as category,
         g.name, g.detail, g.price, g.cnt, g.trade_method_code, g.location,
         g.quality_code, g.sell_status_code
-        from GOODS g, goods_img gi ,member_detail md
-        where g.goods_num = gi.goods_num and md.mem_num = g.mem_num_sell and
+        from GOODS g, goods_img gi ,member_detail md, goods_category gc
+        where g.goods_num = gi.goods_num and md.mem_num = g.mem_num_sell and g.category_num = gc.category_num and
         md.mem_num = #{memNum, jdbcType=INTEGER}
     </select>
     
