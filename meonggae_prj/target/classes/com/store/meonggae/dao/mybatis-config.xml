@@ -56,6 +56,8 @@
     
 	   	<!-- 마이페이지 -->
     <mapper resource="com/store/meonggae/my/dao/mapper/MypageMainMapper.xml"/>
+    <mapper resource="com/store/meonggae/my/dao/mapper/DibsMapper.xml"/>
+    <mapper resource="com/store/meonggae/my/dao/mapper/SalesListMapper.xml"/>
     
     <!-- 내상점, 마이페이지 끝 -->
   </mappers>
