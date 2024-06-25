@@ -3,9 +3,16 @@
     info="비밀번호 수정"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 로그인 세션 설정 시작 -->
-<%
-
-%>
+<c:choose>
+	<c:when test="${ empty user }">
+		<script type="text/javascript">
+			alert("로그인이 필요한 서비스입니다.");
+			
+			//이창은 닫아버리기
+			location.href="http://localhost/meonggae_prj/index.do";
+		</script>
+	</c:when>
+	<c:otherwise>
 <!-- 로그인 세션 설정 끝 -->
 
 <c:import url="http://localhost/meonggae_prj/common/My/css/css.jsp"/>
@@ -46,3 +53,6 @@
 </form>
 </body>
 </html>
+
+	</c:otherwise>
+</c:choose>
