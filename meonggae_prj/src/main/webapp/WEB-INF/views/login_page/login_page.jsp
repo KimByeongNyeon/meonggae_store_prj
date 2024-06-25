@@ -63,7 +63,9 @@
 						<a
 							href="https://kauth.kakao.com/oauth/authorize?
 							client_id=0738d40e4912047a5dbb57d8ca06a869&
-							redirect_uri=http://localhost/meonggae_prj/login_page/kakao_test.do&response_type=code">
+							redirect_uri=http://localhost/meonggae_prj/login_page/kakao_test.do&
+							response_type=code&
+							prompt=login">
 							<img
 							src="http://localhost/meonggae_prj/common/images/kakao_login_medium_wide.png"
 							width="222" alt="카카오 로그인 버튼">

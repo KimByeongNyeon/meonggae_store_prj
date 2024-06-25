@@ -39,7 +39,7 @@ input[type="text"], input[type="file"], select, textarea {
 }
 
 .btn {
-	background-color: #d9534f;
+	background-color: #d7e99a;
 	color: white;
 	padding: 10px 20px;
 	border: none;
@@ -49,6 +49,10 @@ input[type="text"], input[type="file"], select, textarea {
 
 .btn-secondary {
 	background-color: #5bc0de;
+}
+
+.btn-warning {
+	background-color: #ef3d3d
 }
 
 .image-preview {
