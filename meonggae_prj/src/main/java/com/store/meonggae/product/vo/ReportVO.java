@@ -13,7 +13,13 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class SteamVO {
-	private String goodsNum;
-	private int memNum;
+public class ReportVO {
+	private int iMemNumRep;
+    private String iGoodsNum;
+    private String iCategory;
+    private String iTitle;
+    private String iContents;
+    private int cntMem;
+    private int cntMgr;
+    private String errMsg;
 }

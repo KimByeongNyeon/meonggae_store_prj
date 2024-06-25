@@ -19,14 +19,29 @@ jQuery(document).ready(function($) {
 		}//end if
 	});//click
 	
-	//신고하기
+	//신고하기 모달창 보이기
 	$(".open-report-modal").click(function(){
 		if(checkLogin()){//로그인여부 확인
 			$("#reportModal").modal("show");
 		}
 	});
+	//X를 클릭하면 내용 리셋
 	$("#reportModal").on('hidden.bs.modal',function(e){
 		$(this).find('form')[0].reset();
+	});
+	//신고등록 전 유효성검사
+	$("#btn-report").click(function(){
+	var iCategory = $('#report-category').val();
+	var iTitle = $('input[name="iTitle"]').val().trim();
+	var iContents = $('textarea[name="iContents"]').val().trim();
+		if( iCategory != '0' && iTitle != '' && iContents != '' ){
+			if(confirm("신고 내용은 멍게장터 이용약관 및 정책에 의해서 처리되며,\n허위신고 시 멍게장터 이용이 제한될 수 있습니다.")){
+				$("#reportFrm").submit();
+				alert("신고가 정상적으로 접수되었습니다.");
+			}//end if
+		}else{
+			alert("모든 입력사항을 기입해주세요.");
+		}//end else
 	});
 	
 	//멍게톡 클릭 버튼

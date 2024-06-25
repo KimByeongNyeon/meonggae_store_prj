@@ -56,5 +56,49 @@ where goods_num=#{ goodsNum }
 and mem_num=#{ memNum }
 </update>
 
+<!-- 신고 insert -->
+<select id="insertReport" parameterType="com.store.meonggae.product.vo.ReportVO" statementType="CALLABLE">
+{
+	call insert_report(
+	#{ iMemNumRep, mode=IN, jdbcType=NUMERIC },
+	#{ iGoodsNum, mode=IN, jdbcType=VARCHAR },
+	#{ iCategory, mode=IN, jdbcType=VARCHAR },
+	#{ iTitle, mode=IN, jdbcType=VARCHAR },
+	#{ iContents, mode=IN, jdbcType=VARCHAR },
+	#{ cntMem, mode=OUT, jdbcType=NUMERIC },
+	#{ cntMgr, mode=OUT, jdbcType=NUMERIC },
+	#{ errMsg, mode=OUT, jdbcType=VARCHAR }
+	)
+}
+</select>
+
+
+<!-- <resultMap type="searchSellerDomain" id="searchSellerDomain"> -->
+<!-- <result column="MEM_NUM_SELL" property="memNumSell"/> -->
+<!-- <result column="GOODS_NUM" property="goodsNum"/> -->
+<!-- <result column="IMG_NAME" property="imgName"/> -->
+<!-- <result column="PRICE_FM" property="priceFm"/> -->
+<!-- <result column="NICK" property="memNink"/> -->
+<!-- <result column="IMG" property="memImg"/> -->
+<!-- </resultMap> -->
+<!-- 판매자 정보 조회 -->
+<select id="checkFirstS" resultType="int" parameterType="com.store.meonggae.product.vo.SteamVO">
+select v.MEM_NUM_SELL, v.GOODS_NUM, v.IMG_NAME, v.PRICE_FM, m.NICK, m.IMG
+from V_SELECT_ALL_GOODS v
+join member m on v.MEM_NUM_SELL=m.MEM_NUM
+where v.mem_num_sell=#{ memNum }
+and v.GOODS_NUM not in( #{ goodsNum } )
+</select>
+
+<!-- 판매자 정보 조회 -->
+<select id="chec" resultType="int" parameterType="com.store.meonggae.product.vo.SteamVO">
+SELECT *
+FROM V_SELECT_REVIEW_STAR
+WHERE GOODS_NUM IN (
+    SELECT GOODS_NUM
+    FROM GOODS
+    WHERE MEM_NUM_SELL = 5
+)
+</select>
 
 </mapper>

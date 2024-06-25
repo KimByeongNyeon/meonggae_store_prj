@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.store.meonggae.dao.MybatisDAO;
+import com.store.meonggae.product.vo.ReportVO;
 import com.store.meonggae.product.vo.SteamVO;
 
 
@@ -56,5 +57,21 @@ public class ProductDetailInfoDAO {
 			return ss.update("com.store.meonggae.product.ProductDetailInfoMapper.updateSteamToN", steamVO);
 		}
 	};//checkFirstSteam
+	
+	//신고번호 시퀀스 가져오기
+	public int getIMemNumRep()throws PersistenceException{
+		try(SqlSession ss = mbDAO.getMyBatisHandler(false)) {
+			return ss.selectOne("com.store.meonggae.product.ProductDetailInfoMapper.getIMemNumRep");
+		}
+	}//getIMemNumRep
+	
+	//신고하기 insert
+	public void insertReport(ReportVO reportVO)throws PersistenceException{
+		try(SqlSession ss = mbDAO.getMyBatisHandler(true)) {//auto commit 자동 커밋)
+			 ss.selectOne("com.store.meonggae.product.ProductDetailInfoMapper.insertReport", reportVO);
+			 System.out.println("신고하기 에러"+ reportVO.getErrMsg());
+		}
+	}//getIMemNumRep
+	
 	
 }
