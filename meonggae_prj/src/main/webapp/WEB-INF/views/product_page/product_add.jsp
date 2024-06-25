@@ -46,10 +46,11 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 	console.log(options[1]);
 	
-    let optionTags = "";
-    for (let i = 0; i < options.length; i++) {
-    	 optionTags += '<option value="' + i+1 + '">' + options[i] + '</option>\n';
-    }
+	let optionTags = "";
+	for (let i = 0; i < options.length; i++) {
+	    optionTags += '<option value="' + (i + 1) + '">' + options[i] + '</option>\n';
+	}
+
 
     console.log("Final optionTags:", optionTags);  // 최종 optionTags를 로그로 출력
 
