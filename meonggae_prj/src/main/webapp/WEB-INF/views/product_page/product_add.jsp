@@ -36,7 +36,27 @@
 <script src="../common/JS/tab.js"></script>
 <script src="../common/JS/product_add.js"></script>
 <script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+	const options = [
+        "여성의류", "남성의류", "가방/지갑", "악세서리", "디지털", "스타굿즈", "도서/문구", "뷰티/미용", "상의",
+        "바지", "치마", "원피스", "언더웨어/홈웨어", "아우터", "상의", "하의", "여성가방", "남성가방",
+        "여행용가방", "귀걸이", "목걸이", "반지", "노트북", "무선이어폰", "스마트폰", "포스터", "포토카드",
+        "피규어", "도서", "문구", "티켓", "스킨케어", "색조메이크업", "남성화장품"
+    ];
+	
+	console.log(options[1]);
+	
+    let optionTags = "";
+    for (let i = 0; i < options.length; i++) {
+    	 optionTags += '<option value="' + i+1 + '">' + options[i] + '</option>\n';
+    }
+
+    console.log("Final optionTags:", optionTags);  // 최종 optionTags를 로그로 출력
+
+    document.getElementById('category_num').innerHTML = optionTags;
+});
 $(function () {
+	
 	$("#add").click(function(){
 		var ext=$("#img").val();
 		
@@ -93,15 +113,8 @@ function previewImage(event) {
                                 <input type="text" id="name" name="name" required>
                             </div>
                             <div class="form-group">
-                                <label for="category">카테고리</label>
-                                <select id="category" name="category" required>
-                                    <option value="여성의류">여성의류</option>
-                                    <option value="남성의류">남성의류</option>
-                                    <option value="신발">신발</option>
-                                    <option value="가방/지갑">가방/지갑</option>
-                                    <option value="시계">시계</option>
-                                    <option value="쥬얼리">쥬얼리</option>
-                                    <option value="패션 악세서리">패션 악세서리</option>
+                                <label for="category_num">카테고리</label>
+                                <select id="category_num" name="category_num" required>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -167,14 +180,14 @@ function previewImage(event) {
                             <tbody>
                                 <c:forEach var="product" items="${productList}">
                                     <tr>
-                                        <td><img alt="상품 정보" src="http://localhost/meonggae_prj/products-img/${product.img}"></td>
+                                        <td><img alt="상품 정보" src="http://localhost/meonggae_prj/products-img/${product.imgFileName}"></td>
                                         <td>
                                             <select>
                                                 <option value="판매중" <c:if test="${product.sell_status_code == 'N'}">selected</c:if>>판매중</option>
                                                 <option value="판매완료" <c:if test="${product.sell_status_code == 'S'}">selected</c:if>>판매완료</option>
                                             </select>
                                         </td>
-                                        <td>${product.category_num}</td>
+                                        <td>${product.category}</td>
                                         <td>${product.name}</td>
                                         <td>${product.price}</td>
                                         <td>
