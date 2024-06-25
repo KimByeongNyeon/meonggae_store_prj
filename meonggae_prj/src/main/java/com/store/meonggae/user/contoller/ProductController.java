@@ -81,7 +81,6 @@ public class ProductController {
 	  
 	  
 	  }
-	 
     
     @GetMapping("/product_page/tab02.do")
     public String productChange(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
@@ -102,5 +101,5 @@ public class ProductController {
         }
     	
     }
-
+    
 }

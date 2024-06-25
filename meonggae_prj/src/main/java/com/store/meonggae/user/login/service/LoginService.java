@@ -68,6 +68,7 @@ public class LoginService {
 
 	public LoginDomain getKaKaoUserInfo(String accessToken) throws Exception {
 		String url = "https://kapi.kakao.com/v2/user/me";
+		
 		RestTemplate restTemplate = new RestTemplate();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -78,14 +79,26 @@ public class LoginService {
 
 		Map<String, Object> userInfo = response.getBody();
 		LoginDomain user = new LoginDomain();
-
+		
+		
+		//비밀번호, 닉네임
 		Random random = new Random();
 		long randomNumber = (long) (1000000000L + random.nextDouble() * 9000000000L);
 
 		String randomPass = String.valueOf(randomNumber);
-
+		
+		String preRanNick [] = {"행복한 ", "방황하는 ", "빈곤한 ", "추운 ", "부유한 ", "우람한 ", "엄중한 ", "육중한 ", "남성적인 ", "여성적인 "};
+		String postRanNick [] = {"고양이", "사자", "강아지", "이구아나", "고릴라", "빡빡이", "멍청이", "호랑이", "해달", "광어"};
+		
+		String preNick = preRanNick[random.nextInt(preRanNick.length)];
+		String postNick = postRanNick[random.nextInt(postRanNick.length)];
+		
+		String nickname = preNick+postNick;
+		
+		System.out.println(nickname);
+		
 		String memId = null;
-		String nick = null;
+		String nick = nickname;
 		String profile = null;
 		String pass = randomPass;
 
