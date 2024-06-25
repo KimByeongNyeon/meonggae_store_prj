@@ -122,6 +122,10 @@ function previewImage(event) {
                                 <label for="price">가격</label>
                                 <input type="text" id="price" name="price" required>
                             </div>
+                            <div class="form-group">
+                                <label for="deliver_fee">배송비</label>
+                                <input type="text" id="deliver_fee" name="deliver_fee" required>
+                            </div>
                         </div>
                         <div class="form-section">
                             <div class="form-group">
