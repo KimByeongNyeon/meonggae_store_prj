@@ -55,7 +55,7 @@
 		#{location, jdbcType=VARCHAR}, 
 		#{quality_code,
 		jdbcType=VARCHAR},
-		 #{sell_status_code, jdbcType=CHAR}
+		'N'
 		 )
 	</insert>
 
