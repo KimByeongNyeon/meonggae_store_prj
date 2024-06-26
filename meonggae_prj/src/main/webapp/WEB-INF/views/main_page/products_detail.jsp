@@ -152,22 +152,24 @@
 				<div class="product-sellerStyle">
 					<button class="store-btn">
 						<div class="profile">
-							<img class="profile-pic" src="../common/images/kimyear.png" alt="판매하기 이미지">
+							<img class="profile-pic" src="http://localhost/meonggae_prj/profile-img/${ sellerInfo.img }" alt="판매자 이미지">
 						</div>
-							없는거빼고다있어샵
+							${ sellerInfo.nick }
 					</button>
 					<div class="seller-other-products">
-					<c:forEach begin="1" end="6" varStatus="i">
+					<c:forEach var="list" items="${ sellerOtherPrdList }" varStatus="i">
+					<c:if test="${i.index < 6}">
 						<div class="other-product">
-							<a href="#void">
-								<img src="../products-img/product-${ i.index }.jpg" alt="" class="other-product-thumbnail">
-								<span class="other-product-price">1${ i.index },000원</span>
+							<a href="products_detail.do?goodsNum=${ list.goodsNum }">
+								<img src="http://localhost/meonggae_prj/products-img/${ list.imgName }" alt="" class="other-product-thumbnail">
+								<span class="other-product-price">${ list.priceFm }원</span>
 							</a>
 						</div>
+					</c:if>
 					</c:forEach>
 					</div>
 					<div class="other-products-more">
-						<a href="#void">판매자의 상품 더보기	></a>
+						<a href="http://localhost/meonggae_prj/My/store/store_frm.do?nick=${ sellerInfo.nick }">판매자의 상품 더보기	></a>
 					</div>
 				</div>
 						
@@ -175,27 +177,36 @@
 					<h3>상점후기</h3>
 				</div>
 				<div class="product-reviewStyle">
-				<c:forEach begin="1" end="3" varStatus="i">
+				<c:forEach var="list" items="${ searchReviewList }" varStatus="i">
+				<c:if test="${i.index < 3}">
 					<div class="one-review">
 						<button class="buyer-btn">
 							<div class="buyer-profile">
-								<img class="buyer-pic" src="../common/images/default.png" alt="판매하기 이미지">
+								<img class="buyer-pic" src="http://localhost/meonggae_prj/profile-img/${ list.buyerImg }" alt="리뷰작성자 이미지">
 							</div>
-								댕큰구매하러옴
+								${ list.buyerNick }
 						</button>
 						<div class="ratings">
-							<i class="fa fa-star"></i> 
-							<i class="fa fa-star"></i> 
-							<i class="fa fa-star"></i> 
-							<i class="fa fa-star"></i> 
+						<!-- star 값 설정 -->
+						<c:set var="star" value="${list.star}" />
+
+						<!-- 꽉 찬 별 출력 -->
+						<c:forEach var="i" begin="1" end="${star}">
+							<i class="fa fa-star"></i>
+						</c:forEach>
+
+						<!-- 빈 별 출력 -->
+						<c:forEach var="i" begin="1" end="${5 - star}">
 							<i class="fa fa-star-o"></i>
-						<p class="review-time-ago" style="float: right;">${ i.index }일전</p>
+						</c:forEach>
+						<p class="review-time-ago" style="float: right;">${ list.timeAgoStr }</p>
 						</div>
-						<p>${ 4 - i.index }번째 거래입니다. 좋은 거래 감사합니다.</p>
+						<p>${ list.content }</p>
 					</div>
+				</c:if>
 				</c:forEach>
 					<div class="review-more">
-						<a href="#void">상점후기 더보기	></a>
+						<a href="http://localhost/meonggae_prj/My/store/store_review_frm.do?nick=${ sellerInfo.nick }">상점후기 더보기	></a>
 					</div>
 				</div>
 			</div>

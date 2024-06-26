@@ -1,11 +1,16 @@
 package com.store.meonggae.product.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.store.meonggae.dao.MybatisDAO;
+import com.store.meonggae.product.domain.SearchReviewDomain;
+import com.store.meonggae.product.domain.SellOtherPrdDomain;
+import com.store.meonggae.product.domain.SellerInfoDomain;
 import com.store.meonggae.product.vo.ReportVO;
 import com.store.meonggae.product.vo.SteamVO;
 
@@ -69,9 +74,35 @@ public class ProductDetailInfoDAO {
 	public void insertReport(ReportVO reportVO)throws PersistenceException{
 		try(SqlSession ss = mbDAO.getMyBatisHandler(true)) {//auto commit 자동 커밋)
 			 ss.selectOne("com.store.meonggae.product.ProductDetailInfoMapper.insertReport", reportVO);
-			 System.out.println("신고하기 에러"+ reportVO.getErrMsg());
+			 System.out.println("신고하기 에러 : "+ reportVO.getErrMsg());
 		}
 	}//getIMemNumRep
+	
+	//판매자 정보 조회
+	public SellerInfoDomain sellerInfo(int memNum)throws PersistenceException {
+		try (SqlSession ss = mbDAO.getMyBatisHandler(false)) {
+			return ss.selectOne("com.store.meonggae.product.ProductDetailInfoMapper.sellerInfo", memNum);
+		}
+	};//sellerInfo
+	//판매자 다른 상품 조회
+	public List<SellOtherPrdDomain> sellerOtherPrd(SteamVO steamVO)throws PersistenceException {
+		try (SqlSession ss = mbDAO.getMyBatisHandler(false)) {
+			return ss.selectList("com.store.meonggae.product.ProductDetailInfoMapper.sellerOtherPrd", steamVO);
+		}
+	};//sellerOtherPrd
+	//판매자 리뷰 조회
+	public List<SearchReviewDomain> searchReview(int memNum)throws PersistenceException {
+		try (SqlSession ss = mbDAO.getMyBatisHandler(false)) {
+			return ss.selectList("com.store.meonggae.product.ProductDetailInfoMapper.searchReview", memNum);
+		}
+	};//searchReview
+	
+	//조회수 올리기
+	public void updateCnt(String goodsNum)throws PersistenceException{
+		try(SqlSession ss = mbDAO.getMyBatisHandler(true)){//auto commit 자동 커밋)
+			ss.update("com.store.meonggae.product.ProductDetailInfoMapper.updateCnt", goodsNum);
+		}
+	}//updateCnt
 	
 	
 }

@@ -17,6 +17,9 @@
 	<typeAlias type="com.store.meonggae.product.domain.CategoryDomain" alias="categoryDomain"/>
 	<typeAlias type="com.store.meonggae.product.domain.SearchProductDetailDomain" alias="searchProductDetailDomain"/>
 	<typeAlias type="com.store.meonggae.product.domain.SearchProductDomain" alias="searchProductDomain"/>
+	<typeAlias type="com.store.meonggae.product.domain.SellerInfoDomain" alias="sellerInfoDomain"/>
+	<typeAlias type="com.store.meonggae.product.domain.SellOtherPrdDomain" alias="sellOtherPrdDomain"/>
+	<typeAlias type="com.store.meonggae.product.domain.SearchReviewDomain" alias="searchReviewDomain"/>
 
 	<typeAlias type="com.store.meonggae.product.domain.ProductDomain" alias="productDomain"/>
 	
