@@ -51,6 +51,11 @@
 			}//end if
 		});
 		
+		$("#applyBtn1").click(function(){
+			
+				$("#fileFrm").submit();
+		});
+		
 		// 취소버튼
 		$("#quitBtn").click(function(){
 			location.href="http://localhost/meonggae_prj/My/mypage/personal/quitMembership_frm.do";
@@ -128,34 +133,32 @@
 		<!-- 메뉴목록 -->
 	</div>
 	
+	<form id="fileFrm" action="upload_profile_process.do" method="post" enctype="multipart/form-data" >
 	<table class="pTable" id="pTable">
 		<tr>
 			<td id="tableTitle1" class="tableTitle1">프로필 사진</td>
 			<td>
-	<form id="fileFrm" action="upload_profile_process.do" method="post" enctype="multipart/form-data">
-			<img src="http://localhost/meonggae_prj/common/images/profile_temp.png" class="img-circle" style="width: 100px; height: 100px"/><br/><br/>
+			<img src="http://localhost/meonggae_prj/profile-img/${ user.img }" class="img-circle" style="width: 100px; height: 100px"/><br/><br/>
 			<input type="file" name="upfile" id ="upfile">
-			<input type="button" value="적용" id="applyBtn" class="btn btn-danger btn-lg"/>
-	</form>
 			<div id="imgGuide">.png, .jpg, .jpge 확장자 파일만 등록 가능합니다.</div>
 			</td>
 		</tr>
 		<tr>
 			<td id="tableTitle2" class="tableTitle2">이름</td>
 			<td>
-			<label>모모모씨</label>
+			<label>${ pDomain.name }</label>
 			</td>
 		</tr>
 		<tr>
 			<td id="tableTitle2" class="tableTitle2">아이디</td>
 			<td>
-			<label>아이디어쩌구집에가고싶1q2w3e4r다</label>
+			<label>${ user.id }</label>
 			</td>
 		</tr>
 		<tr>
 			<td id="tableTitle2" class="tableTitle2">닉네임</td>
 			<td>
-			<input type="text" id="nickname" class="nickname" name="nickname" value="찌비" maxlength="12"/>
+			<input type="text" id="nickname" class="nickname" name="nickname" value="${ user.nick }" maxlength="12"/>
 			<input type="button" value="닉네임 중복확인" id="nickChkBtn" class="btn btn-success"/>
 			</td>
 		</tr>
@@ -168,7 +171,8 @@
 		<tr>
 			<td id="tableTitle3" class="tableTitle3">전화번호</td>
 			<td>
-			<input type="text" id="phoneNumber" name="phoneNumber" class="phoneNumber" maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+			<input type="text" value="${ pDomain.tel }" id="phoneNumber" name="phoneNumber" class="phoneNumber" maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/><br/>
+			<div id="imgGuide">전화번호는 -를 제외하고 입력해주세요.</div>
 			</td>
 		</tr>
 		<tr>
@@ -182,19 +186,19 @@
 		<tr>
 			<td id="tableTitle3" class="tableTitle3">주소</td>
 			<td class="addr_td">
-				<input data-value="주소를 입력해주세요." type="text" id="addr0" class="addr essential" name="addr0" value="" readonly="readonly" maxlength="100" size="50"/><br />
-				<input data-value="상세주소를 입력해주세요." type="text" id="addr1" class="addr essential" name="addr1" value="" style="margin-top:7px;" size="50"/>
+				<input data-value="주소를 입력해주세요." type="text" id="addr0" class="addr essential" name="addr0" value="${ pDomain.addr }" readonly="readonly" maxlength="100" size="50"/><br />
+				<input data-value="상세주소를 입력해주세요." type="text" id="addr1" class="addr essential" name="addr1" value="${ pDomain.addrDetail }" style="margin-top:7px;" size="50"/>
 			</td>
 		</tr>
 	</table>
 	<br>
 	<div id="btnWrap">
-	<!-- <input type="button" value="적용" id="applyBtn" class="btn btn-danger btn-lg"/> -->
+	<input type="button" value="적용" id="applyBtn" class="btn btn-danger btn-lg"/>
 	<input type="button" value="취소" id="cancleBtn" class="btn btn-secondary btn-lg"/>
 	</div>
+	</form>
 	
 	<input type="button" value="회원 탈퇴" id="quitBtn" class="btn btn-light btn-sm"/>
-	
 	
 </div>
 <!-- 내용 끝 -->

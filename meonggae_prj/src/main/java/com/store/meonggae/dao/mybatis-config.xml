@@ -31,6 +31,8 @@
 	
 	<!-- my -->
 	<typeAlias type="com.store.meonggae.my.domain.GoodsDomain" alias="goodsDomain"/>
+	<typeAlias type="com.store.meonggae.my.domain.PersonalDomain" alias="personalDomain"/>
+	<typeAlias type="com.store.meonggae.my.vo.PwVO" alias="pwVO"/>
 <!-- store,my -->
 
 </typeAliases>
@@ -61,7 +63,7 @@
     <mapper resource="com/store/meonggae/my/dao/mapper/MypageMainMapper.xml"/>
     <mapper resource="com/store/meonggae/my/dao/mapper/DibsMapper.xml"/>
     <mapper resource="com/store/meonggae/my/dao/mapper/SalesListMapper.xml"/>
-    
+    <mapper resource="com/store/meonggae/my/dao/mapper/PersonalMapper.xml"/>
     <!-- 내상점, 마이페이지 끝 -->
   </mappers>
 </configuration>

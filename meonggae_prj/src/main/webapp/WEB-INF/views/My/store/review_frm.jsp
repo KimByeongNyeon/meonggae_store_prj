@@ -31,7 +31,7 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/style.css">
-<link rel="stylesheet" href="http://localhost/meonggae_prj/common/My/css/style_store.css?after12">
+<link rel="stylesheet" href="http://localhost/meonggae_prj/common/My/css/style_store.css">
 <!-- CSS -->
 
 <script type="text/javascript">

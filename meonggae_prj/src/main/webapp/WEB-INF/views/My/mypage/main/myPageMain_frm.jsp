@@ -20,7 +20,7 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/style.css">
-<link rel="stylesheet" href="http://localhost/meonggae_prj/common/My/css/style_mypage.css?as33df">
+<link rel="stylesheet" href="http://localhost/meonggae_prj/common/My/css/style_mypage.css?">
 <!-- CSS -->
 
 <script type="text/javascript">

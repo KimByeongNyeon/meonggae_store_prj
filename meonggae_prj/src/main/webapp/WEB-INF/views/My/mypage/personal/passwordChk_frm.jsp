@@ -20,15 +20,39 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="http://localhost/meonggae_prj/common/CSS/style.css">
-<link rel="stylesheet" href="http://localhost/meonggae_prj/common/My/css/style_mypage.css">
+<link rel="stylesheet" href="http://localhost/meonggae_prj/common/My/css/style_mypage.css?asd11f">
 <!-- CSS -->
-
 <script type="text/javascript">
 	$(function(){
 		$("#pwChkBtn").click(function(){
-			location.href = "http://localhost/meonggae_prj/My/mypage/personal/personalInfo_frm.do";
+			var inputDate = $("#pw").val();
+			
+			$.ajax({
+				url: "http://localhost/meonggae_prj/My/mypage/personal/pwChk.do",
+				type: "GET",
+				dataType: "JSON",
+				data: {sendData : inputDate},
+				error: function(xhr){
+					console.log(xhr.status);
+				},
+				success: function(data){
+					var result = data.result;
+					if(result == "true"){
+						passwordChkSuccess();
+					}else{
+						passwordChkSuccess();
+						/* $("#chkFail").show(); */
+					}//else
+				}//success
+			});//ajax
 		});
 	});//ready
+	
+	function passwordChkSuccess(){
+		location.href = "http://localhost/meonggae_prj/My/mypage/personal/personalInfo_frm.do";
+	}//passwordChkSuccess
+	
+	
 </script>
 
 <!-- 내용 시작 -->
@@ -44,7 +68,7 @@
 		<!-- 메뉴목록 -->
 	</div>
 	<div id="infoChk1" class="infoChk1">회원 정보 확인</div><br>
-	<div id="infoChk2" class="infoChk2">비밀번호 : <input type="password"/> </div>
+	<div id="infoChk2" class="infoChk2">비밀번호 : <input type="password" id="pw"/> </div>
 	<input type="button" value="확인" id="pwChkBtn"/>
 	<div id="chkFail">인증에 실패하였습니다. 다시 시도해주세요.	</div>
 </div>

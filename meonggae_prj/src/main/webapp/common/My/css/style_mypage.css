@@ -99,6 +99,7 @@
 }
 
 #chkFail{
+	display: none;
 	color: #FF0000;
 	font-size: 16px;
 	margin-top: 10px;
