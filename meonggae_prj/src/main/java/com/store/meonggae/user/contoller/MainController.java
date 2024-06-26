@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.store.meonggae.product.domain.CategoryDomain;
 import com.store.meonggae.product.domain.SearchProductDetailDomain;
 import com.store.meonggae.product.domain.SearchProductDomain;
+import com.store.meonggae.product.domain.SearchReviewDomain;
+import com.store.meonggae.product.domain.SellOtherPrdDomain;
+import com.store.meonggae.product.domain.SellerInfoDomain;
 import com.store.meonggae.product.service.CategoryService;
 import com.store.meonggae.product.service.SearchProductService;
 import com.store.meonggae.product.service.ProductDetailInfoService;
@@ -118,10 +121,19 @@ public class MainController {
 		}
 	    
 		//판매자 정보
-		//판매자 후기
+		SellerInfoDomain sellerInfo = ProductDetailInfoService.sellerInfo(spd.getMemNumSell());
+		//판매자 다른상품
+		SteamVO steamVo2 = new SteamVO(spd.getGoodsNum(), spd.getMemNumSell());
+		List<SellOtherPrdDomain> sellerOtherPrdList = ProductDetailInfoService.sellerOtherPrd(steamVo2);
+		//판매자 리뷰
+		List<SearchReviewDomain> searchReviewList = ProductDetailInfoService.searchReview(spd.getMemNumSell());
+		
 		
 		model.addAttribute("spd", spd);
 		model.addAttribute("parentCateList", parentCateList);
+		model.addAttribute("sellerInfo", sellerInfo);
+		model.addAttribute("sellerOtherPrdList", sellerOtherPrdList);
+		model.addAttribute("searchReviewList", searchReviewList);
 		
 		return "main_page/products_detail";
 	}

@@ -73,31 +73,49 @@ and mem_num=#{ memNum }
 </select>
 
 
-<!-- <resultMap type="searchSellerDomain" id="searchSellerDomain"> -->
-<!-- <result column="MEM_NUM_SELL" property="memNumSell"/> -->
-<!-- <result column="GOODS_NUM" property="goodsNum"/> -->
-<!-- <result column="IMG_NAME" property="imgName"/> -->
-<!-- <result column="PRICE_FM" property="priceFm"/> -->
-<!-- <result column="NICK" property="memNink"/> -->
-<!-- <result column="IMG" property="memImg"/> -->
-<!-- </resultMap> -->
-<!-- 판매자 정보 조회 -->
-<select id="checkFirstS" resultType="int" parameterType="com.store.meonggae.product.vo.SteamVO">
-select v.MEM_NUM_SELL, v.GOODS_NUM, v.IMG_NAME, v.PRICE_FM, m.NICK, m.IMG
-from V_SELECT_ALL_GOODS v
-join member m on v.MEM_NUM_SELL=m.MEM_NUM
-where v.mem_num_sell=#{ memNum }
-and v.GOODS_NUM not in( #{ goodsNum } )
+<resultMap type="sellerInfoDomain" id="sellerInfoDomain">
+<result column="MEM_NUM" property="memNum"/>
+<result column="NICK" property="nick"/>
+<result column="IMG" property="img"/>
+</resultMap>
+<!-- 판매자 정보 조회-->
+<select id="sellerInfo" resultType="sellerInfoDomain" parameterType="int">
+select  MEM_NUM, NICK, IMG
+from member
+where MEM_NUM=#{ memNum }
 </select>
 
-<!-- 판매자 정보 조회 -->
-<select id="chec" resultType="int" parameterType="com.store.meonggae.product.vo.SteamVO">
-SELECT *
+<resultMap type="sellOtherPrdDomain" id="sellOtherPrdDomain">
+<result column="MEM_NUM_SELL" property="memNumSell"/>
+<result column="GOODS_NUM" property="goodsNum"/>
+<result column="IMG_NAME" property="imgName"/>
+<result column="PRICE_FM" property="priceFm"/>
+</resultMap>
+<!-- 판매자 상품 조회 -->
+<select id="sellerOtherPrd" resultType="sellOtherPrdDomain" parameterType="com.store.meonggae.product.vo.SteamVO">
+select MEM_NUM_SELL, GOODS_NUM, IMG_NAME, PRICE_FM
+from V_SELECT_ALL_GOODS
+where mem_num_sell=#{ memNum }
+and GOODS_NUM not in( #{ goodsNum } )
+</select>
+
+<resultMap type="searchReviewdomain" id="searchReviewdomain">
+<result column="BUYER_NUM" property="buyerNum"/>
+<result column="BUYER_NICK" property="buyerNick"/>
+<result column="GOODS_NUM" property="goodsNum"/>
+<result column="CONTENT" property="content"/>
+<result column="STAR" property="star"/>
+<result column="INPUT_DATE" property="inputDate"/>
+<result column="TIME_AGO_STR" property="timeAgoStr"/>
+</resultMap>
+<!-- 리뷰 조회 -->
+<select id="searchReview" resultType="searchReviewdomain" parameterType="int">
+SELECT BUYER_NUM, BUYER_NICK, GOODS_NUM, CONTENT, STAR, INPUT_DATE, TIME_AGO_STR
 FROM V_SELECT_REVIEW_STAR
 WHERE GOODS_NUM IN (
     SELECT GOODS_NUM
     FROM GOODS
-    WHERE MEM_NUM_SELL = 5
+    WHERE MEM_NUM_SELL = #{ memNum }
 )
 </select>
 
