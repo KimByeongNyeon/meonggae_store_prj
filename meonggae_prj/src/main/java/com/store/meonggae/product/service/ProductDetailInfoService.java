@@ -2,6 +2,7 @@ package com.store.meonggae.product.service;
 
 import java.util.List;
 
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,15 +56,21 @@ public class ProductDetailInfoService {
     
     //판매자 정보 조회
     public SellerInfoDomain sellerInfo(int memNum) {
+    	
     	return pdiDAO.sellerInfo(memNum);
     }//sellerInfo
     //판매자 다른 상품 조회
     public List<SellOtherPrdDomain> sellerOtherPrd(SteamVO steamVO) {
-    	return pdiDAO.sellerOtherPrd(steamVO);
+    	return pdiDAO.sellerOtherPrd(steamVO); 
     }//sellerOtherPrd
     //판매자 리뷰 조회
     public List<SearchReviewDomain> searchReview(int memNum) {
     	return pdiDAO.searchReview(memNum);
     }//searchReview
+    
+    //조회수 올리기
+    public void updateCnt(String goodsNum) {
+    	pdiDAO.updateCnt(goodsNum);
+    }
     
 }

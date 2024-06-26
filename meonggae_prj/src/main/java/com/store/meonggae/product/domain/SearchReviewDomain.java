@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class SearchReviewDomain {
-	private String buyerNick, goodsNum, content, timeAgoStr;
+	private String buyerNick, goodsNum, buyerImg, content, timeAgoStr;
 	private int buyerNum, star;
 	private Date inputDate;
 }

@@ -74,7 +74,7 @@ public class ProductDetailInfoDAO {
 	public void insertReport(ReportVO reportVO)throws PersistenceException{
 		try(SqlSession ss = mbDAO.getMyBatisHandler(true)) {//auto commit 자동 커밋)
 			 ss.selectOne("com.store.meonggae.product.ProductDetailInfoMapper.insertReport", reportVO);
-			 System.out.println("신고하기 에러"+ reportVO.getErrMsg());
+			 System.out.println("신고하기 에러 : "+ reportVO.getErrMsg());
 		}
 	}//getIMemNumRep
 	
@@ -96,6 +96,13 @@ public class ProductDetailInfoDAO {
 			return ss.selectList("com.store.meonggae.product.ProductDetailInfoMapper.searchReview", memNum);
 		}
 	};//searchReview
+	
+	//조회수 올리기
+	public void updateCnt(String goodsNum)throws PersistenceException{
+		try(SqlSession ss = mbDAO.getMyBatisHandler(true)){//auto commit 자동 커밋)
+			ss.update("com.store.meonggae.product.ProductDetailInfoMapper.updateCnt", goodsNum);
+		}
+	}//updateCnt
 	
 	
 }

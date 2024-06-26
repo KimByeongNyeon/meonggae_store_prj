@@ -93,10 +93,23 @@ public class MainController {
 	//상세페이지 이동 
 	@GetMapping("/main_page/products_detail.do")
 	public String productDetail(HttpSession session, @RequestParam(name = "goodsNum", required = false) String goodsNum, Model model) {
+		//조회한 페이지인지 확인
+		Object cntSession = session.getAttribute("cntFlag");
+		boolean cntFlag = false;
+		if(cntSession != null) {
+			cntFlag=((String)cntSession).contains(goodsNum);
+			//세션에 goodsNum(문자열)이 포함되어있는지 확인.
+			//포함되어있으면 그 페이지는 이미 조회했으므로 조회수 안 올림. 
+		}//end if
+		//조회수 올리기
+		if(!cntFlag) {
+			ProductDetailInfoService.updateCnt(goodsNum);
+			session.setAttribute("cntFlag", session.getAttribute("cntFlag")+","+goodsNum);
+		}//end if
 		// 사용자 정보를 세션에서 가져옴
         LoginDomain loginUser = (LoginDomain) session.getAttribute("user");
         
-		//상품 상세
+		//상품 상세 조회
 		SearchProductDetailDomain spd = SearchProductService.selectPrdDetail(goodsNum);
 		
 		//대분류 카테고리에 속한 상품인지 확인 true면 대분류상품, false면 소분류 상품
@@ -118,13 +131,15 @@ public class MainController {
 			SteamVO steamVo = new SteamVO(spd.getGoodsNum(), loginUser.getMemNum());
 			boolean checkMemSteam = ProductDetailInfoService.checkMemSteam(steamVo);
 			model.addAttribute("checkMemSteam", checkMemSteam);
-		}
+		}//end if
 	    
 		//판매자 정보
 		SellerInfoDomain sellerInfo = ProductDetailInfoService.sellerInfo(spd.getMemNumSell());
+		
 		//판매자 다른상품
 		SteamVO steamVo2 = new SteamVO(spd.getGoodsNum(), spd.getMemNumSell());
 		List<SellOtherPrdDomain> sellerOtherPrdList = ProductDetailInfoService.sellerOtherPrd(steamVo2);
+		
 		//판매자 리뷰
 		List<SearchReviewDomain> searchReviewList = ProductDetailInfoService.searchReview(spd.getMemNumSell());
 		

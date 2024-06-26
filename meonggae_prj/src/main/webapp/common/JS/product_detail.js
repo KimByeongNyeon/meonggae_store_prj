@@ -50,6 +50,18 @@ jQuery(document).ready(function($) {
 			
 		}
 	});
+	
+	//판매자 프로필 클릭
+	$(".store-btn").click(function(){
+		var sellerNick = $(this).text().trim();
+		location.href='http://localhost/meonggae_prj/My/store/store_frm.do?nick='+sellerNick;
+	});//store-btn.click
+	
+	//리뷰작성자 프로필 클릭
+	$(".buyer-btn").click(function(){
+		var buyerNick = $(this).text().trim();
+		location.href='http://localhost/meonggae_prj/My/store/store_frm.do?nick='+buyerNick;
+	});//buyer-btn.click
 });//ready
 
 //select 카테고리로 검색 - 부모
@@ -129,4 +141,5 @@ function updateSteamToN(){
 		}//success
 	});//ajax
 }//updateSteamToN
+
 
