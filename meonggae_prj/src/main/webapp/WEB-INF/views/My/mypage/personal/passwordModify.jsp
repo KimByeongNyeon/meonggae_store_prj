@@ -7,9 +7,6 @@
 	<c:when test="${ empty user }">
 		<script type="text/javascript">
 			alert("로그인이 필요한 서비스입니다.");
-			
-			//이창은 닫아버리기
-			location.href="http://localhost/meonggae_prj/index.do";
 		</script>
 	</c:when>
 	<c:otherwise>
@@ -25,12 +22,31 @@
 </style>
 <script type="text/javascript">
 	$(function(){
-		/* 취소 */
-		$("#addMenuBtn").click(function(){
-			alert("추가");
+		/* 변경 */
+		$("#modifyBtn").click(function(){
+			var inputdata1 = $("#pw1").val().trim();
+			var inputdata2 = $("#pw2").val().trim();
+			
+			if( inputdata1 == "" ){
+				alert("변경할 비밀번호를 입력해주세요.");
+				return;
+			}//end if
+			if( inputdata2 == "" ){
+				alert("변경할 비밀번호를 입력해주세요.");
+				return;
+			}//end if
+			
+			if( inputdata1 != inputdata2 ){
+				alert("입력하신 비밀번호가 다릅니다. 다시 확인하고 입력해주세요.")
+			}else{
+				if(confirm("비밀번호를 변경할까요?")){
+					$("#modiftPw").submit();
+					alert("변경되었습니다");
+				}//end if
+			}//end else
 		});
 		
-		/* 추가 */
+		/* 취소 */
 		$("#cancleBtn").click(function(){
 			self.close();
 		});
@@ -38,15 +54,15 @@
 </script>
 </head>
 <body>
-<form>
+<form id="modiftPw" action="http://localhost/meonggae_prj/My/mypage/personal/doPasswordModify.do" method="get">
 	<div id="back">
 		<div id="title">비밀번호 변경</div>
 		<div id="subTitle">안전한 비밀번호로 내 정보를 보호하세요</div>
-		<input type="password" id="pw" name="pw" placeholder="새 비밀번호" maxlength="50"><br/>
-		<input type="password" id="pw" name="pw" placeholder="새 비밀번호 확인" maxlength="50">
+		<input type="password" id="pw1" name="pw1" placeholder="새 비밀번호" maxlength="50"><br/>
+		<input type="password" id="pw2" name="pw2" placeholder="새 비밀번호 확인" maxlength="50">
 		<div id="blank"> </div>
 		<div id="btnWrap">
-		<input type="button" value="변경" id="addMenuBtn" class="btn btn-primary btn-sm"/>　
+		<input type="button" value="변경" id="modifyBtn" class="btn btn-primary btn-sm"/>　
 		<input type="button" value="취소" id="cancleBtn" class="btn btn-secondary btn-sm"/>
 		</div>
 	</div>
