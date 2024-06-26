@@ -4,13 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 로그인 세션 설정 시작 -->
 <c:choose>
-		<c:when test="${ empty user }">
-			<script type="text/javascript">
-				alert("로그인이 필요한 서비스입니다.");
-				location.href="http://localhost/meonggae_prj/index.do";
-			</script>
-		</c:when>
-		<c:otherwise>
+	<c:when test="${ empty user }">
+		<script type="text/javascript">
+			alert("로그인이 필요한 서비스입니다.");
+			location.href="http://localhost/meonggae_prj/index.do";
+		</script>
+	</c:when>
+	<c:otherwise>
 <!-- 로그인 세션 설정 끝 -->
 
 <!-- header -->
@@ -40,31 +40,44 @@
 		<%@ include file="../menuBar/mypageMenu.jsp" %>
 		<hr id="menuBottonLine">
 		<!-- 메뉴목록 -->
+	</div>
 		
-		<div class="row">
-			<div class="tab-content">
-				<div class="tab-pane active" id="trending">
-					<c:forEach begin="1" end="7" varStatus="i">
-					<div class="col-md-3 col-sm-4">
-						<div class="single-product">
-							<div class="product-block">
-								<img src="../../../products-img/product-${ i.index }.jpg" class="thumbnail">
+	<c:choose>
+	<c:when test="${not empty allDibsList}">
+	
+	<div class="row">
+		<div class="tab-content">
+			<div class="tab-pane active" id="trending">
+				<c:forEach items="${ allDibsList }" var="is">
+				<div class="col-md-3 col-sm-4">
+					<div class="single-product">
+						<div class="product-block">
+							<a href="http://localhost/meonggae_prj/main_page/products_detail.do?goodsNum=${ is.goodsNum }">
+								<img src="http://localhost/meonggae_prj/products-img/${ is.img }" class="thumbnail">
 								<div class="product-description text-left">
-									<p class="title">여성의류</p>
+									<p class="title">${ is.name }</p>
 									<div style="overflow: hidden;">
-									<p class="price" style="float: left;">0원</p>
-									<p class="time-ago" style="float: right;">0일전</p>
+									<p class="price" style="float: left;">${ is.price }원</p>
+									<p class="time-ago" style="float: right;">${ is.inputDate }</p>
 									</div>
 								</div>
-							</div>
+							</a>
 						</div>
 					</div>
-					</c:forEach>
 				</div>
+				</c:forEach>
 			</div>
 		</div>
-		
 	</div>
+	
+	</c:when>
+	<c:otherwise>
+		<div class="noGoodsDibs">
+		찜한 상품이 없습니다!
+		</div>
+	</c:otherwise>
+	</c:choose>
+	
 </div>
 <!-- 내용 끝 -->
 

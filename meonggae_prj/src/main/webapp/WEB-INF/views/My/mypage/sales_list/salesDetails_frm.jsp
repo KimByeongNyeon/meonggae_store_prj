@@ -49,21 +49,26 @@
 		<!-- 메뉴목록 -->
 	</div>
 	
+	<c:choose>
+	<c:when test="${not empty salesList}">
+	
 	<div class="row">
 		<div class="tab-content">
 			<div class="tab-pane active" id="trending">
-				<c:forEach begin="1" end="2" varStatus="i">
+				<c:forEach items="${ salesList }" var="is">
 				<div class="col-md-3 col-sm-4">
 					<div class="single-product">
 						<div class="product-block">
-							<img src="../../../products-img/product-${ i.index }.jpg" class="thumbnail">
-							<div class="product-description text-left">
-								<p class="title">여성의류</p>
-								<div style="overflow: hidden;">
-								<p class="price" style="float: left;">0원</p>
-								<p class="time-ago" style="float: right;">0일전</p>
+							<a href="http://localhost/meonggae_prj/main_page/products_detail.do?goodsNum=${ is.goodsNum }">
+								<img src="http://localhost/meonggae_prj/products-img/${ is.img }" class="thumbnail">
+								<div class="product-description text-left">
+									<p class="title">${ is.name }</p>
+									<div style="overflow: hidden;">
+									<p class="price" style="float: left;">${ is.price }원</p>
+									<p class="time-ago" style="float: right;">${ is.inputDate }</p>
+									</div>
 								</div>
-							</div>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -71,7 +76,13 @@
 			</div>
 		</div>
 	</div>
-		
+	</c:when>
+	<c:otherwise>
+		<div class="noGoodsSales">
+		판매중인 상품이 없습니다!
+		</div>
+	</c:otherwise>
+	</c:choose>	
 </div>
 <!-- 내용 끝 -->
 
