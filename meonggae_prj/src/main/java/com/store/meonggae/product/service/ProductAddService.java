@@ -56,6 +56,38 @@ public class ProductAddService {
         // 상품 이미지 정보를 DB에 저장 (필요시 구현)
         praDAO.insertProductImg(product);
     }
+    
+    public void updateProduct(ProductDomain product, MultipartFile img) throws IOException {
+    	//상품 업데이트를 하기 위해 이미지 받아오기
+    	if(img != null && !img.isEmpty()) {
+    	
+    	String oriFileName = img.getOriginalFilename();
+    	String fileExt = oriFileName.substring(oriFileName.lastIndexOf("."));
+    	String storedFile = UUID.randomUUID().toString() + fileExt;
+    	
+    	//이미지 저장경로 설정
+    	Path filePath = Paths.get("C:/Users/user/git/meonggae_store_prj/meonggae_prj/src/main/webapp/products-img", storedFile);
+    	
+    	//파일 디렉토리가 없으면 파일 디렉토리 생성
+    	if(!Files.exists(filePath.getParent())) {
+    		Files.createDirectories(filePath.getParent());
+    	}
+    	
+    	//파일을 디렉토리에 저장
+    	img.transferTo(filePath.toFile());
+    	
+    	//상품 업데이트를 위해 파일명 설정
+    	praDAO.updateProductImg(product);
+    	
+    	//상품 이미지 DB에 저장
+    	product.setImgFileName(storedFile);
+    	}
+    	//상품 정보 DB에 저장
+    	
+    	praDAO.updateProduct(product);
+    }
+    
+   
 
 //    public void insertProduct(ProductDomain product, MultipartFile image) throws IOException {
 //        // 파일 업로드 처리

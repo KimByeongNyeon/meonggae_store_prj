@@ -34,9 +34,21 @@ public class ProductAddDAO {
         }
     }
 
-    public int updateProduct(ProductDomain product) {
+    public void updateProduct(ProductDomain product) {
         try (SqlSession ss = mbDAO.getMyBatisHandler(true)) {
-            return ss.update("com.store.meonggae.product.updateProduct", product);
-        }
+            ss.update("com.store.meonggae.product.updateProduct", product);
+        }catch (PersistenceException e) {
+        	System.out.println("상품 업데이트에 실패했습니다.");
+        	e.printStackTrace();
+		}
+    }
+    
+    public void updateProductImg(ProductDomain product) {
+    	try (SqlSession ss = mbDAO.getMyBatisHandler(true)) {
+    		ss.update("com.store.meonggae.product.updateProductImg", product);
+    	}catch (PersistenceException e) {
+    		System.out.println("이미지 업데이트에 실패했습니다.");
+    		e.printStackTrace();
+		}
     }
 }
