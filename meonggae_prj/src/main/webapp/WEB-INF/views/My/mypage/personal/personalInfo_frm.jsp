@@ -128,13 +128,15 @@
 		<!-- 메뉴목록 -->
 	</div>
 	
-	<form id="fileFrm" action="upload_profile_process.do" method="post" enctype="multipart/form-data">
 	<table class="pTable" id="pTable">
 		<tr>
 			<td id="tableTitle1" class="tableTitle1">프로필 사진</td>
 			<td>
+	<form id="fileFrm" action="upload_profile_process.do" method="post" enctype="multipart/form-data">
 			<img src="http://localhost/meonggae_prj/common/images/profile_temp.png" class="img-circle" style="width: 100px; height: 100px"/><br/><br/>
 			<input type="file" name="upfile" id ="upfile">
+			<input type="button" value="적용" id="applyBtn" class="btn btn-danger btn-lg"/>
+	</form>
 			<div id="imgGuide">.png, .jpg, .jpge 확장자 파일만 등록 가능합니다.</div>
 			</td>
 		</tr>
@@ -187,10 +189,10 @@
 	</table>
 	<br>
 	<div id="btnWrap">
-	<input type="button" value="적용" id="applyBtn" class="btn btn-danger btn-lg"/>
+	<!-- <input type="button" value="적용" id="applyBtn" class="btn btn-danger btn-lg"/> -->
 	<input type="button" value="취소" id="cancleBtn" class="btn btn-secondary btn-lg"/>
 	</div>
-	</form>
+	
 	<input type="button" value="회원 탈퇴" id="quitBtn" class="btn btn-light btn-sm"/>
 	
 	

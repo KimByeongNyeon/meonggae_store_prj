@@ -2,9 +2,8 @@ package com.store.meonggae.my.domain;
 
 public class GoodsDomain {
 	
-	private int goodsNum, rnum;
-	private String price, name, img;
-	private String inputDate;
+	private int goodsNum;
+	private String price, name, img, inputDate;
 	
 	public int getGoodsNum() {
 		return goodsNum;
@@ -17,12 +16,6 @@ public class GoodsDomain {
 	}
 	public void setPrice(String price) {
 		this.price = price;
-	}
-	public int getRnum() {
-		return rnum;
-	}
-	public void setRnum(int rnum) {
-		this.rnum = rnum;
 	}
 	public String getName() {
 		return name;
@@ -45,7 +38,7 @@ public class GoodsDomain {
 	
 	@Override
 	public String toString() {
-		return "StoreMainDomain [goodsNum=" + goodsNum + ", price=" + price + ", rnum=" + rnum + ", name=" + name
+		return "GoodsDomain [goodsNum=" + goodsNum + ", price=" + price + ", name=" + name
 				+ ", img=" + img + ", inputDate=" + inputDate + "]";
 	}
 	

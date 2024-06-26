@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -83,7 +84,7 @@ public class ProductController {
 	  }
     
     @GetMapping("/product_page/tab02.do")
-    public String productChange(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String productDetail(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
     	LoginDomain loginUser = (LoginDomain) session.getAttribute("user");
         // 사용자 정보를 세션에서 가져옴
 
@@ -100,6 +101,19 @@ public class ProductController {
             return "redirect:/index.do";
         }
     	
+    }
+    
+    @PostMapping("/product_page/product_update.do")
+    public String updateProduct(@RequestParam("goodsNum") String goodsNum, Model model, HttpSession session, RedirectAttributes redirectAttributes ) {
+    LoginDomain loginUser = (LoginDomain) session.getAttribute("user");
+    
+    if(loginUser == null) {
+    	redirectAttributes.addFlashAttribute("message", "로그인이 필요한 서비스 입니다.");
+    	return "redirect:/index.do";
+    }
+    
+    	
+    	return "product_page/tab01";
     }
     
 }
