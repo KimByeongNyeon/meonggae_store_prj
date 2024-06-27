@@ -7,12 +7,12 @@ function nickChk() {
 	var nick= obj.nick.value;
 	var ko_reg = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]{1,12}$/; //nick: 한글가능할 때
 	if( nick == "" ){
-		alert("닉네임 한글/영문/숫자 1~12자 이내로 입력해주세요.");
+		alert("닉네임을 한글, 영문, 숫자를 사용하여 1~12자 이내로 입력해주세요.");
 		obj.nick.value="";
 		obj.nick.focus();
 		return;
 	} else if( !ko_reg.test(nick) ){
-		alert("닉네임 한글/영문/숫자 1~12자 이내로 입력해주세요.");
+		alert("닉네임을 한글, 영문, 숫자를 사용하여 1~12자 이내로 입력해주세요.");
 		obj.nick.value="";
 		obj.nick.focus();
 		return;
