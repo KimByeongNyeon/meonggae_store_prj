@@ -38,8 +38,7 @@
 <!--다음 우편번호 API 끝-->
 
 <script src ="../common/JS/script.js"></script>
-<script src ="../common/JS/sign_up.js"></script>
-<script src ="../common/JS/mem_join.js"></script>
+<script src ="http://localhost/meonggae_prj/common/JS/mem_join.js"></script>
 </head>
 <body>
 <!-- header 시작 -->
@@ -48,7 +47,7 @@
 
 <div class="container" style="height:100%">
 <!-- 회원가입 시작 -->
-<form name="frm" id="frm" action="member_join_process.jsp" method="post">
+<form name="frm" id="frm" action="memJoin.do" method="post">
         <!-- 이용약관 시작 -->
         <div class="agree">
             <div>
@@ -122,13 +121,16 @@
 						<input data-value="아이디를 입력해주세요." name="id" id="id" class="inputTxt inputIdtype essential" type="text" maxlength="20"  />
 						<div class="space"></div>
 						<input type="button" value="ID 중복확인"class="btn btn-outline-dark" id="idChk"/>
+						<span>*아이디를 영문, 숫자를 사용하여 5~12자 이내로 입력해주세요.</span>
+						<div class="error_text item_style" id="idMsg" style="display: none;"></div>
 					</td>
 				</tr>
 				<tr>
 					<th><label for="password">비밀번호</label></th>
 					<td>
 						<input data-value="비밀번호를 입력해주세요." name="password" id="password" class="inputPass size02 essential" type="password"  />
-						<span>*6~12자의 영문, 숫자, 특수문자 3가지를 조합하여 입력</span>
+						<span>*영문, 숫자, 특수문자 3가지를 조합하여 6~12자 이내로 입력해주세요.</span>
+						<div class="error_text item_style" id="passwordMsg" style="display: none;"></div>
 					</td>
 				</tr>
 				<tr>
@@ -141,7 +143,8 @@
 				<tr>
 					<th><label for="name">이름</label></th>
 					<td>
-						<input data-value="이름을 입력해주세요." id="name" name="name" class="inputTxt inputName essential" type="text"  />
+						<input data-value="이름을 입력해주세요." id="name" name="name" class="inputTxt inputName essential" type="text"/>
+						<div class="error_text item_style" id="nameMsg" style="display: none;"></div>
 					</td>
 				</tr>
 				<tr>
@@ -150,21 +153,23 @@
                         <input data-value="닉네임를 입력해주세요." name="nick" id="nick" class="inputTxt inputIdtype essential" type="text" maxlength="20"  />
                         <div class="space"></div>
                         <input type="button" value="닉네임 중복확인"class="btn btn-outline-dark" id="nickChk"/>
-                        <span>*닉네임을 한글, 영문, 숫자 1~12자 이내로 입력해주세요.</span>
+                        <span>*닉네임을 한글, 영문, 숫자를 사용하여 1~12자 이내로 입력해주세요.</span>
+                        <div class="error_text item_style" id="nickMsg" style="display: none;"></div>
                     </td>
                 </tr>
 				<tr>
 					<th scope="row"><label for="">생년월일</label></th>
 					<td >
 						<input type="text" name="birthday" id="datepicker" class="essential">
-						<span id="CalregistdateIcon">
-						</span>
+						<span id="CalregistdateIcon"></span>
+						<div class="error_text item_style" id="datepickerMsg" style="display: none;"></div>
 					</td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
 					<td>
-						<input type="text" name="cell" class="essential" id="cell" value="" data-value="전화번호를 입력해주세요."  />
+						<input type="text" name="cell" class="essential" id="cell" value="" data-value="전화번호를 입력해주세요."/>
+						<div class="error_text item_style" id="cellMsg" style="display: none;"></div>
 					</td>
 				</tr>
 				<tr>
@@ -172,6 +177,7 @@
 		 			<td> 
 						<input data-value="성별을 선택하세요." name="gender" type="radio" id="radio_check01" value="1" /><label for="radio_check01">남자</label>
 		 				<input name="gender" type="radio" id="radio_check02"  value="2"/><label for="radio_check02">여자</label>
+		 				<div class="error_text item_style" id="genderMsg" style="display: none;"></div>
 		 			</td> 
 				</tr> 
 				<tr>
@@ -180,6 +186,7 @@
 						<input data-value="우편번호를 입력해주세요." type="text" class="zipcode essential" id="zipcode" name="zipcode" value="" readonly="readonly"/>
 						<div class="space"></div>
 						<input type="button" value="우편번호검색"class="btn btn-outline-dark" id="addChk"/>
+						<div class="error_text item_style" id="zipcodeMsg" style="display: none;"></div>
 					</td>
 				</tr>
 				<tr>
@@ -187,6 +194,8 @@
 					<td class="addr_td">
 						<input data-value="주소를 입력해주세요." type="text" id="addr0" class="addr essential" name="addr0" value="" readonly="readonly" /><br />
 						<input data-value="상세주소를 입력해주세요." type="text" id="addr1" class="addr essential" name="addr1" value="" style="margin-top:7px;" />
+						<div class="error_text item_style" id="addr0Msg" style="display: none;"></div>
+						<div class="error_text item_style" id="addr10Msg" style="display: none;"></div>
 					</td>
 				</tr>
 			</table>

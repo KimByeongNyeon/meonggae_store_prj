@@ -48,14 +48,14 @@ $(function() {
 
 //아이디 유효성검사 후 중복 팝업 생성
 function idDupWin(){
-	var id=document.frm.id.value;
+	var id=$("#id").val().trim();
     var reg = /^[A-z0-9]{5,12}$/;//영문/숫자 5~12자 이내인지 확인
     if( !reg.test(id) ){
-    	alert("아이디를 영문, 숫자 5~12자 이내로 입력해주세요.");
+    	alert("아이디를 영문, 숫자를 사용하여 5~12자 이내로 입력해주세요.");
         $("#id").val('');
         $("#id").focus();
     } else {
-    	window.open("id_dup.do?id="+id, "idDup", "width=472, height=350, top="+
+    	window.open("id_dup.do?id="+id, "idDup", "width=472, height=390, top="+
         (window.screenY+203)+", left="+(window.screenX+306));
     }
 };//idDupWin
@@ -72,42 +72,17 @@ function chkCorrectPw() {
 
 //닉네임 유효성검사 후 중복 팝업 생성
 function nickDupWin() {
-	var nick=document.frm.nick.value;
+	var nick=$("#nick").val().trim();
     var ko_reg = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]{1,12}$/;//한글/영문/숫자 1~12자 이내인지 확인
     if( !ko_reg.test(nick) ){
-    	alert("닉네임을 한글, 영문, 숫자 1~12자 이내로 입력해주세요.");
+    	alert("닉네임을 한글, 영문, 숫자를 사용하여 1~12자 이내로 입력해주세요.");
     	$("#nick").val('');
         $("#nick").focus();
      } else {
-        window.open("nick_dup.do?nick="+nick, "nickDup", "width=472, height=400, top="+
+        window.open("nick_dup.do?nick="+nick, "nickDup", "width=472, height=390, top="+
         (window.screenY+203)+", left="+(window.screenX+306));
      }
 }; //nickDupWin	
-
-//필수 입력 확인
-function chkInputAll() {
-	let flagInputArrAll = true;
-	let arrEssential = $(".essential");
-	let arrLabel = ['아이디', '비밀번호', '이름', '닉네임', '생년월일', '전화번호', '우편번호', '주소', '상세주소']
-
-	$.each(arrEssential, function(index, value) {
-		if ($(value).val() == "") {
-			alert(arrLabel[index] + '는 필수 입력입니다');
-			flagInputArrAll = false;
-			return false;
-		} // end if
-	});
-
-	if (flagInputArrAll && !($("[name='gender']").is(":checked"))) {
-		alert('성별은 필수 입력입니다');
-		flagInputArrAll = false;
-	} // end if
-
-	if (flagInputArrAll) {
-		$("#frm").submit();
-	} // end if
-
-}; // chkInputAll
 
 //	다음 우편번호 API 설정
 function zipcodeApi() {
@@ -139,3 +114,63 @@ function zipcodeApi() {
 		}
 	}).open();
 };//zipcodeApi
+
+//필수 입력 확인
+function chkInputAll() {
+	//이용약관 체크 여부 확인
+	var agree1 = $('#agree1').is(':checked');
+	var agree2 = $('#agree2').is(':checked');
+	
+	//필수 입력란 확인
+	let flagInputArrAll = true;
+	let arrEssential = $(".essential");
+	let arrLabel = ['아이디', '비밀번호', '이름', '닉네임', '생년월일', '전화번호', '우편번호', '주소', '상세주소']
+	var errorMsg = [];
+	
+	//약관에 모두 동의했을 경우
+	if(agree1 && agree2){
+		//필수 입력란 확인
+		$.each(arrEssential, function(index, value) {
+			if ($(value).val() == "") {
+				//빈칸인 필드의 ID와 에러 메시지를 구성.
+				let inputId = $(value).attr('id');
+				let errorText = arrLabel[index] + '는 필수 입력입니다';
+				
+				errorMsg.push(errorText);
+				
+				//빈칸인 필드에 에러 메시지 설정.
+				$("#" + inputId + "Msg").html(errorText);
+				$("#" + inputId + "Msg").css('display', 'block');
+				
+				//폼 제출 막기
+				flagInputArrAll = false;
+			} // end if
+		});//end each
+		
+		//에러메시지가 있으면 상단으로 올라가기
+		if(errorMsg.length > 0){
+			window.scrollTo(0,540);
+		}//end if
+		
+		//성별 체크 여부 확인
+		if (!($("[name='gender']").is(":checked"))) {
+			$("#genderMsg").html('성별은 필수 입력입니다');
+			$("#genderMsg").css('display', 'block');
+			window.scrollTo(0,540);
+			
+			//폼 제출 막기
+			flagInputArrAll = false;
+		} // end if
+		
+		//폼 제출
+		if (flagInputArrAll) {
+			$("#frm").submit();
+		} // end if
+	}else{
+		//이용약관에 동의하지 않았을 경우
+		alert("이용약관에 동의해주세요.");
+		window.scrollTo(0,0);//맨위로 올리기
+	}//end else
+	
+
+}; // chkInputAll

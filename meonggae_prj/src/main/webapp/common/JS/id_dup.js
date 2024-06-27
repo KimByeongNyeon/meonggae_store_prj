@@ -7,12 +7,12 @@ function idChk() {
 	var id= obj.id.value;
 	var reg = /^[A-z0-9]{5,12}$/;//영문/숫자 5~12자 이내인지 확인
 	if( id == "" ){
-		alert("아이디를 영문/숫자 5~12자 이내로 입력해주세요.");
+		alert("아이디를 영문, 숫자를 사용하여 5~12자 이내로 입력해주세요.");
 		obj.id.value="";
 		obj.id.focus();
 		return;
 	} else if( !reg.test(id) ){
-		alert("아이디를 영문/숫자 5~12자 이내로 입력해주세요.");
+		alert("아이디를 영문, 숫자를 사용하여 5~12자 이내로 입력해주세요.");
 		obj.id.value="";
 		obj.id.focus();
 		return;
