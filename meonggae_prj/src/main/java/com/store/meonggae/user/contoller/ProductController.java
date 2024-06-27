@@ -57,9 +57,8 @@ public class ProductController {
         }
 
         // 사용자 정보 설정
-        product.setMemNum(loginUser.getMemNum());
         System.out.println("memNum "+loginUser.getMemNum());
-
+        product.setmem_num_sell(loginUser.getMemNum());
         if (img == null || img.isEmpty()) {
             model.addAttribute("uploadFlag", false);
             model.addAttribute("message", "이미지 파일이 필요합니다.");
@@ -67,6 +66,7 @@ public class ProductController {
         }
 
         // 상품 등록 서비스 호출
+        System.out.println(product.toString());
         productAddService.insertProduct(product, img);
 
         // 모델에 필요한 정보 추가
@@ -104,16 +104,36 @@ public class ProductController {
     }
     
     @PostMapping("/product_page/product_update.do")
-    public String updateProduct(@RequestParam("goodsNum") String goodsNum, Model model, HttpSession session, RedirectAttributes redirectAttributes ) {
-    LoginDomain loginUser = (LoginDomain) session.getAttribute("user");
-    
-    if(loginUser == null) {
-    	redirectAttributes.addFlashAttribute("message", "로그인이 필요한 서비스 입니다.");
-    	return "redirect:/index.do";
+    public String updateProduct(
+            @RequestParam("goodsNum") String goodsNum,
+            @RequestParam("sell_status_code") String sell_status_code,
+            @RequestParam("name") String name,
+            @RequestParam("price") String price,
+            @RequestParam("location") String location,
+            HttpSession session,
+            RedirectAttributes redirectAttributes) throws IOException {
+        
+        LoginDomain loginUser = (LoginDomain) session.getAttribute("user");
+
+        if (loginUser == null) {
+            redirectAttributes.addFlashAttribute("message", "로그인이 필요한 서비스 입니다.");
+            return "redirect:/index.do";
+        }
+
+        System.out.println("Received update request: goodsNum=" + goodsNum + ", sellStatusCode=" + sell_status_code
+                + ", name=" + name + ", price=" + price + ", location=" + location);
+
+        ProductDomain product = new ProductDomain();
+        product.setGoodsNum(goodsNum);
+        product.setsell_status_code(sell_status_code);
+        product.setName(name);
+        product.setPrice(price);
+        product.setLocation(location);
+
+        productAddService.updateProduct(product);
+
+        return "redirect:/product_page/tab01.do";
     }
-    
-    	
-    	return "product_page/tab01";
-    }
+
     
 }

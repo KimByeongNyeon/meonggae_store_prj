@@ -30,11 +30,18 @@ public class UserEventDAO {
 		}
 	}
 
-	public EventDomain selectDetailEvent(int seq) throws PersistenceException {
+	public EventDomain selectDetailEvent(int eventNum) throws PersistenceException {
 		try (SqlSession ss = mbDAO.getMyBatisHandler(false)) {
-			return ss.selectOne("com.store.meonggae.event.selectDetailEvent", seq);
+			return ss.selectOne("com.store.meonggae.event.selectDetailEvent", eventNum);
 		}
 	}
+	
+	public int updateCnt(int eventNum) throws PersistenceException {
+	    try (SqlSession ss = mbDAO.getMyBatisHandler(true)) {
+	        return ss.update("com.store.meonggae.event.updateCnt", eventNum);
+	    }
+	}
+
 }
 
 /*

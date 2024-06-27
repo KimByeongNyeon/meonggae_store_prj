@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,9 +46,24 @@ public class EventController {
     }
 
     @GetMapping("/event_page/event_detail.do")
-    public String eventDetail(Model model, @RequestParam("event-code") int eventNum) {
+    public String eventDetail(Model model, @RequestParam("event-code") int eventNum, HttpSession session) {
+        // 이벤트 상세 정보를 조회합니다.
         EventDomain eventDetail = eventService.selectDetailEvent(eventNum);
+        
+       
+    	Object cntSession = session.getAttribute("cntFlag");
+		boolean cntFlag = false;
+		if (cntSession != null) {
+			cntFlag = ((String)cntSession).contains(String.valueOf(eventNum));
+		}
+
+		if (!cntFlag) {
+			eventService.updateCnt(eventNum);
+			session.setAttribute("cntFlag", session.getAttribute("cntFlag")+ ","+eventNum);
+		}
+                
         model.addAttribute("eventDetail", eventDetail);
+        model.addAttribute("cnt", eventDetail.getCnt());
         return "event_page/event_detail";
     }
 
