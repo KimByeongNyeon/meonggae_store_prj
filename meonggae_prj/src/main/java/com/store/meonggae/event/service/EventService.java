@@ -23,8 +23,12 @@ public class EventService {
         return eventDAO.selectEvent(pVO);
     }
 
-    public EventDomain selectDetailEvent(int seq) {
-        return eventDAO.selectDetailEvent(seq);
+    public EventDomain selectDetailEvent(int eventNum) {
+        return eventDAO.selectDetailEvent(eventNum);
+    }
+    
+    public int updateCnt(int eventNum) {
+    	return eventDAO.updateCnt(eventNum);
     }
 
     public int pageScale() {

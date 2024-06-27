@@ -3,25 +3,47 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.store.meonggae.product">
-
 	<!-- 상품을 사용자별로 선택 -->
 	<select id="selectProductByUser"
 		resultType="com.store.meonggae.product.domain.ProductDomain"
 		parameterType="int">
-		select gi.name as imgFileName, g.goods_num,
-		g.mem_num_sell, g.mem_num_buy,
-		g.category_num, gc.name as category,
-		g.name, g.detail, g.price, g.cnt, g.trade_method_code, g.location,
+		select gi.name as imgFileName, g.goods_num as goodsNum,
+		g.mem_num_sell as memNumSell, g.mem_num_buy,
+		g.category_num, gc.name as
+		category,
+		g.name, g.detail, g.price, g.delivery_fee, g.cnt,
+		g.trade_method_code, g.location,
 		g.quality_code, g.sell_status_code
 		from GOODS g, goods_img gi
+		,member_detail md, goods_category gc
+		where
+		g.goods_num = gi.goods_num
+		and md.mem_num = g.mem_num_sell and
+		g.category_num = gc.category_num
+		and
+		md.mem_num = #{memNum,
+		jdbcType=INTEGER}
+	</select>
+
+	<select id="selectProductByGoodsNum"
+		resultType="com.store.meonggae.product.domain.ProductDomain"
+		parameterType="String">
+		select gi.name as imgFileName, g.goods_num as goodsNum,
+		g.mem_num_sell, g.mem_num_buy,
+		g.category_num, gc.name as
+		category,
+		g.name, g.detail, g.price, g.cnt, g.trade_method_code,
+		g.location,
+		g.quality_code, g.sell_status_code
+		from GOODS g, goods_img
+		gi
 		,member_detail md, goods_category gc
 		where g.goods_num = gi.goods_num
 		and md.mem_num = g.mem_num_sell and
 		g.category_num = gc.category_num
 		and
-		md.mem_num = #{memNum, jdbcType=INTEGER}
+		g.goods_num = #{goodsNum, jdbcType=VARCHAR}
 	</select>
-
 	<!-- 상품 추가 -->
 	<insert id="insertProduct"
 		parameterType="com.store.meonggae.product.domain.ProductDomain"
@@ -47,7 +69,7 @@
 		)
 		values(
 		#{goodsNum},
-		#{memNum, jdbcType=INTEGER},
+		#{mem_num_sell, jdbcType=INTEGER},
 		#{name},
 		#{detail},
 		#{price},
@@ -73,28 +95,17 @@
 	</insert>
 
 	<!-- 상품 업데이트 -->
-	<update id="updateProduct"
-		parameterType="com.store.meonggae.product.domain.ProductDomain">
-		update goods
-		set
-		name = #{name, jdbcType=VARCHAR},
-		detail = #{detail, jdbcType=VARCHAR},
-		price = #{price, jdbcType=VARCHAR},
-		delivery_fee = #{deleivery_fee, jdbcType=INTEGER},
-		trade_method_code =
-		#{trade_method_code, jdbcType=CHAR},
-		category_num = #{category_num,
-		jdbcType=VARCHAR},
-		location = #{location, jdbcType=VARCHAR},
-		quality_code = #{quality_code, jdbcType=VARCHAR},
-		sell_status_code =
-		#{sell_status_code, jdbcType=CHAR}
-		where goods_num = #{goodsNum, jdbcType=INTEGER}
-	</update>
-	<update id="updateProductImg"
-		parameterType="com.store.meonggae.product.domain.ProductDomain">
-		update goods_img
-		set	   name = #{imgFileName}
-		where  goods_num = #{goodsNum}
-	</update>
+	<update id="updateProduct" parameterType="com.store.meonggae.product.domain.ProductDomain">
+    update goods
+    set
+    name = #{name, jdbcType=VARCHAR},
+    location = #{location, jdbcType=VARCHAR},
+    price = #{price, jdbcType=VARCHAR},
+    sell_status_code = #{sell_status_code, jdbcType=CHAR}
+    where goods_num = #{goodsNum, jdbcType=VARCHAR}
+</update>
+
+	<!-- <update id="updateProductImg" parameterType="com.store.meonggae.product.domain.ProductDomain"> 
+		update goods_img set name = #{imgFileName} where goods_num = #{goodsNum} 
+		</update> -->
 </mapper>
