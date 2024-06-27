@@ -6,7 +6,7 @@ public class ProductDomain {
 	private String goodsNum, name, detail, quality_code, category_num,  price, cnt, trade_method_code, category, location, sell_status_code;
 	private MultipartFile img;
 	private String imgFileName;
-	private int memNum, delivery_fee;
+	private int mem_num_sell, delivery_fee;
 	public ProductDomain() {
 		
 	}
@@ -15,7 +15,7 @@ public class ProductDomain {
 	
 	public ProductDomain(String goodsNum, String name, String detail, String quality_code, String category_num,
 			String price, String cnt, String trade_method_code, String category, String location,
-			String sell_status_code, MultipartFile img, String imgFileName, int memNum, int delivery_fee) {
+			String sell_status_code, MultipartFile img, String imgFileName, int mem_num_sell, int delivery_fee) {
 		this.goodsNum = goodsNum;
 		this.name = name;
 		this.detail = detail;
@@ -29,7 +29,7 @@ public class ProductDomain {
 		this.sell_status_code = sell_status_code;
 		this.img = img;
 		this.imgFileName = imgFileName;
-		this.memNum = memNum;
+		this.mem_num_sell = mem_num_sell;
 		this.delivery_fee = delivery_fee;
 	}
 
@@ -95,10 +95,10 @@ public class ProductDomain {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public String getSell_status_code() {
+	public String getsell_status_code() {
 		return sell_status_code;
 	}
-	public void setSell_status_code(String sell_status_code) {
+	public void setsell_status_code(String sell_status_code) {
 		this.sell_status_code = sell_status_code;
 	}
 	public MultipartFile getImg() {
@@ -113,11 +113,11 @@ public class ProductDomain {
 	public void setImgFileName(String imgFileName) {
 		this.imgFileName = imgFileName;
 	}
-	public int getMemNum() {
-		return memNum;
+	public int getmem_num_sell() {
+		return mem_num_sell;
 	}
-	public void setMemNum(int memNum) {
-		this.memNum = memNum;
+	public void setmem_num_sell(int mem_num_sell) {
+		this.mem_num_sell = mem_num_sell;
 	}
 	public int getDelivery_fee() {
 		return delivery_fee;
@@ -131,7 +131,7 @@ public class ProductDomain {
 				+ quality_code + ", category_num=" + category_num + ", price=" + price + ", cnt=" + cnt
 				+ ", trade_method_code=" + trade_method_code + ", category=" + category + ", location=" + location
 				+ ", sell_status_code=" + sell_status_code + ", img=" + img + ", imgFileName=" + imgFileName
-				+ ", memNum=" + memNum + ", delivery_fee=" + delivery_fee + "]";
+				+ ", mem_num_sell=" + mem_num_sell + ", delivery_fee=" + delivery_fee + "]";
 	}
 
 

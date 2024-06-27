@@ -52,12 +52,12 @@ from event
 <select id="selectDetailEvent" resultType="com.store.meonggae.event.domain.EventDomain" parameterType="int">
 	select title, content, input_date, cnt, img
 	from event
-	where event_num=#{ event_num }
+	where event_num=#{ event_num, jdbcType=VARCHAR }
 </select>
 <!-- 조회수 cnt -->
 <update id="updateCnt" parameterType="int">
 	update event
 	set cnt=cnt+1
-	where event_num=#{event_num}
+	where event_num=#{event_num, jdbcType=VARCHAR}
 </update>
 </mapper>
